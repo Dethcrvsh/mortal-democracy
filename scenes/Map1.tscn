@@ -22,10 +22,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4.4, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.84552, 2.3, 0)
 
 [node name="Goal" parent="." instance=ExtResource("2_8vwla")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.125, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4.5, 0)
 
 [node name="Player" parent="." instance=ExtResource("2_1ow17")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.97586, 3.80287, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.02741, 6.51832, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.140819, -0.0957629, 0.104879, 0.0768023, 0.175583, 0.0572008, -0.119463, 7.12058e-09, 0.160401, 0, 0, 0)
