@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="mortal_democracy"
-run/main_scene="res://scenes/controller_test.tscn"
+run/main_scene="res://scenes/Main.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -77,6 +77,10 @@ special_p2={
 "events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":1,"button_index":2,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
+
+[physics]
+
+3d/default_gravity=96.0
 
 [rendering]
 
