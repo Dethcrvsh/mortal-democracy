@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://gjj2shypyqs"]
+
+[ext_resource type="Script" path="res://scripts/goal.gd" id="1_at5gv"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5gpan"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8i3ua"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_h43om"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aj2w6"]
+
+[node name="Goal" type="Node3D"]
+script = ExtResource("1_at5gv")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="MicPole" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.1, 0, 0, 0, 0.6, 0, 0, 0, 0.1, 0, 0.607413, 0)
+mesh = SubResource("CylinderMesh_5gpan")
+skeleton = NodePath("../..")
+
+[node name="MicHead" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.163562, 0.11505, -0.0858176, 0, 0.223681, 0.133278, 0.115098, -0.163494, 0.121952, 0, 1.30741, 0)
+mesh = SubResource("CapsuleMesh_8i3ua")
+skeleton = NodePath("../MicPole")
+
+[node name="MicBase" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.5, 0, 0, 0, 0.03, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("CylinderMesh_h43om")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_aj2w6")
+
+[node name="TargetPosition" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
