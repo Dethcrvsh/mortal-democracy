@@ -1,9 +1,3 @@
-[gd_scene load_steps=2 format=3 uid="uid://bvbhyr03w7l1s"]
+[gd_scene format=3 uid="uid://bvbhyr03w7l1s"]
 
-[ext_resource type="PackedScene" uid="uid://be7ab3g8m2wev" path="res://scenes/Map1.tscn" id="1_ajiys"]
-
-[node name="Main" type="Node3D"]
-
-[node name="MainCamera" type="Camera3D" parent="."]
-
-[node name="Map1" parent="." instance=ExtResource("1_ajiys")]
+[node name="main" type="Node3D"]
