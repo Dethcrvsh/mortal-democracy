@@ -5,3 +5,6 @@
 [node name="main" type="Node3D"]
 
 [node name="Map1" parent="." instance=ExtResource("1_61mrf")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.63285, 28.8805, 42.6471)
