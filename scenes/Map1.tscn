@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8uu0pklrycl0"]
+[gd_scene load_steps=4 format=3 uid="uid://bceevbvq4qyh6"]
 
 [ext_resource type="PackedScene" uid="uid://da4bmar1xqjac" path="res://scenes/Platform1.tscn" id="1_2wfer"]
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_aebpf"]
@@ -45,4 +45,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.25454, 1, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 5, 7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 7)
