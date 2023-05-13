@@ -1,11 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://bfswwy6rfvdd1"]
+[gd_scene load_steps=7 format=3 uid="uid://bfswwy6rfvdd1"]
 
 [ext_resource type="PackedScene" uid="uid://bkoeeqyhqgy0l" path="res://scenes/Platform2.tscn" id="1_w1w0v"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_x2j8e"]
 [ext_resource type="PackedScene" uid="uid://da4bmar1xqjac" path="res://scenes/Platform1.tscn" id="2_2e1ef"]
 [ext_resource type="PackedScene" uid="uid://gjj2shypyqs" path="res://scenes/Goal.tscn" id="3_js2xt"]
 [ext_resource type="PackedScene" uid="uid://b7p316tpqry1e" path="res://scenes/player.tscn" id="4_uouc1"]
+[ext_resource type="PackedScene" uid="uid://bikj55cxc5ntv" path="res://scenes/Gamestate.tscn" id="6_qg5do"]
 
 [node name="test_goal" type="Node3D"]
+script = ExtResource("1_x2j8e")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 7, 10)
@@ -49,3 +52,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 6, 0)
 
 [node name="Player" parent="." instance=ExtResource("4_uouc1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.8098, 9.28961, 0)
+
+[node name="Gamestate" parent="." instance=ExtResource("6_qg5do")]

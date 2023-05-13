@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bikj55cxc5ntv"]
+
+[ext_resource type="Script" path="res://scripts/gamestate.gd" id="1_r1tpk"]
+
+[node name="Gamestate" type="Node3D" groups=["gamestate"]]
+script = ExtResource("1_r1tpk")
+
+[node name="vote_text" type="RichTextLabel" parent="."]
+offset_right = 391.0
+offset_bottom = 335.0
