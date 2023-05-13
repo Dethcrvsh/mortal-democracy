@@ -6,7 +6,7 @@
 [ext_resource type="Animation" uid="uid://bmr4xgufmw5op" path="res://Assets/Models/animation.res" id="4_8rlc2"]
 [ext_resource type="Animation" uid="uid://dxmq2uikcd34p" path="res://Assets/Models/fall.res" id="5_jk8jx"]
 [ext_resource type="Animation" uid="uid://cj5b52ysxqyur" path="res://Assets/Models/jump.res" id="6_0u47y"]
-[ext_resource type="Animation" uid="uid://c6seypm4audvi" path="res://Assets/Models/tumble.res" id="7_g4gqr"]
+[ext_resource type="Animation" uid="uid://rdmrcwnud04w" path="res://Assets/Models/tumble.res" id="7_g4gqr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x2v03"]
 resource_name = "Material"

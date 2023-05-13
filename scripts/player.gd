@@ -8,7 +8,7 @@ const TUMBLE_THREASHOLD = 5
 const TUMBLE_DRAG = 0.8
 # The tick coldown for a punch
 const PUNCH_DELAY = 0.5
-const SHIELD_MAX = 3.0
+const SHIELD_MAX = 1.0
 const SHIELD_DMG_PENALTY = -0.5
 const TUMBLE_ROTATION = PI*2
 
