@@ -37,5 +37,3 @@ shape = SubResource("BoxShape3D_aj2w6")
 
 [node name="TargetPosition" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
-[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
