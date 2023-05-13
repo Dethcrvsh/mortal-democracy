@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
 
-const SPEED = 50
-const JUMP_VELOCITY = 50
+const SPEED = 10
+const JUMP_VELOCITY = 25
 const PLAYER_CONST = "p1"
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
