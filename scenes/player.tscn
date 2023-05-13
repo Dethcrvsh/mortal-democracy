@@ -8,7 +8,6 @@ points = PackedVector3Array(0.261681, 0.680906, 0.0598727, -0.288505, -0.595199,
 
 [node name="Player" type="CharacterBody3D" groups=["players"]]
 axis_lock_linear_z = true
-axis_lock_angular_z = true
 script = ExtResource("1_i58mw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

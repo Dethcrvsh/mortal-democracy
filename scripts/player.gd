@@ -8,6 +8,7 @@ const TUMBLE_THREASHOLD = 5
 const TUMBLE_DRAG = 0.8
 # The tick coldown for a punch
 const PUNCH_DELAY = 10
+const TUMBLE_ROTATION = PI*2
 
 var player = ""
 var is_punching = false
@@ -17,6 +18,9 @@ var last_move_dir = -1
 var is_tumble = false
 var tumble_time = 0.0
 var run_animation_timestamp = 0.0
+var rng = RandomNumberGenerator.new()
+var rotation_dir = 1
+var og_rotation = null
 
 @onready var model = $person_model
 @onready var hitbox_node = load("res://scenes/hitbox.tscn")
@@ -31,6 +35,10 @@ func set_player(index: int) -> void:
 func take_damage() -> void:
 	print(player + " took damage")
 
+func _ready():
+	og_rotation = rotation
+	
+
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
@@ -42,9 +50,13 @@ func _physics_process(delta):
 		return
 			
 	if  is_tumble:
+		animator.play("tumble")
+		
+		rotate(Vector3(0.0, 0.0, 1.0), TUMBLE_ROTATION*delta*rotation_dir)
 		tumble_time += delta
 		
 		if is_on_floor() and velocity.length() < TUMBLE_THREASHOLD:
+			rotation = og_rotation
 			is_tumble = false
 			
 		if tumble_time > 0.1:
@@ -120,4 +132,11 @@ func launch_player(launch_vector):
 	is_tumble = true
 	velocity.x = launch_vector.x
 	velocity.y = launch_vector.y
+	
+	var random_i = rng.randi_range(0, 1)
+	print(random_i)
+	if random_i == 0:
+		rotation_dir = 1
+	else:
+		rotation_dir = -1
 	
