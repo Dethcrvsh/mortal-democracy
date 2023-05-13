@@ -4,7 +4,7 @@ extends CharacterBody3D
 const SPEED = 10
 const JUMP_VELOCITY = 25
 const HITBOX_OFFSET = Vector3(1, 0, 0)
-const TUMBLE_THREASHOLD = 1
+const TUMBLE_THREASHOLD = 5
 const TUMBLE_DRAG = 0.8
 # The tick coldown for a punch
 const PUNCH_DELAY = 10
@@ -50,7 +50,17 @@ func _physics_process(delta):
 		if tumble_time > 0.1:
 			tumble_time = 0.0
 			velocity.x *= 0.8
-
+		
+		var saved_velocity = velocity
+		
+		move_and_slide()
+		
+		var collision = get_slide_collision(0)
+		if collision:
+			var bounce_direction = collision.get_collider(0).global_position.direction_to(global_position)
+			velocity = saved_velocity.length()*0.5*bounce_direction
+		return
+	
 	else:
 	
 	# Handle the delay between punches
