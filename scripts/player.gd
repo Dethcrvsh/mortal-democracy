@@ -50,10 +50,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 			
-	if is_tumble:
-		do_tumble(delta)
-		return
-	elif is_punching:
+	if is_punching:
 		do_punch(delta)
 	
 	# Todo Remove this
@@ -148,6 +145,13 @@ func launch_player(launch_vector):
 	is_tumble = true
 	velocity.x = launch_vector.x
 	velocity.y = launch_vector.y
+	
+	var random_i = rng.randi_range(0, 1)
+	print(random_i)
+	if random_i == 0:
+		rotation_dir = 1
+	else:
+		rotation_dir = -1
 
 func do_punch(delta):
 	if punch_time < PUNCH_DELAY:
@@ -156,11 +160,4 @@ func do_punch(delta):
 		hitbox.queue_free()
 		punch_time = 0.0
 		is_punching = false
-	
-	var random_i = rng.randi_range(0, 1)
-	print(random_i)
-	if random_i == 0:
-		rotation_dir = 1
-	else:
-		rotation_dir = -1
 	
