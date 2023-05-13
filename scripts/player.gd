@@ -8,14 +8,21 @@ const TUMBLE_THREASHOLD = 1
 const TUMBLE_DRAG = 0.8
 # The tick coldown for a punch
 const PUNCH_DELAY = 0.2
+const SHIELD_MAX = 3.0
+const SHIELD_DMG_PENALTY = -0.5
 
+const IDLE = 0
+const PUNCH = 1
+const TUMBLE = 2
+const SHIELD = 3
+
+var player_state = 0
 var player = ""
-var is_punching = false
-var punch_time = 0.0
+var cooldown = 0.0
+
+var shield_timer = SHIELD_MAX
 var hitbox = null
 var last_move_dir = -1
-var is_tumble = false
-var tumble_time = 0.0
 var run_animation_timestamp = 0.0
 var input_dir
 
@@ -30,23 +37,27 @@ func set_player(index: int) -> void:
 	player = "p" + str(index + 1)
 
 func take_damage(player_dir, player_vector) -> void:
-	launch_player(Vector3(
-		10.0 * player_dir + 10 * player_vector.x, 
-		20.0 + 20.0 * player_vector.y * -1, 
-		-20.0
-	))
-	print(player + " took damage")
+	if not player_state == SHIELD:
+		launch_player(Vector3(
+			10.0 * player_dir + 10 * player_vector.x, 
+			20.0 + 20.0 * player_vector.y * -1, 
+			0
+		))
+		print(player + " took damage")
+		shield_timer += SHIELD_DMG_PENALTY 
 
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 			
-	if is_tumble:
+	if player_state == TUMBLE:
 		do_tumble(delta)
 		return
-	elif is_punching:
+	elif player_state == PUNCH:
 		do_punch(delta)
+
+	do_shield(delta)
 	
 	# Todo Remove this
 	if player != "p1":
@@ -57,12 +68,17 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump_" + player) and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	
-	if Input.is_action_just_pressed("attack_" + player) and not is_punching:
+	elif Input.is_action_just_pressed("attack_" + player) and player_state == IDLE:
 		hitbox = hitbox_node.instantiate()
 		hitbox.position += HITBOX_OFFSET * last_move_dir
 		hitbox.set_player(self)
 		add_child(hitbox)
-		is_punching = true
+		player_state = PUNCH
+	
+	elif Input.is_action_pressed("shield_" + player) and (player_state == IDLE or player_state == SHIELD):
+		player_state = SHIELD
+	else:
+		player_state = IDLE
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -102,26 +118,36 @@ func _physics_process(delta):
 	move_and_slide()
 
 func do_tumble(delta):
-	tumble_time += delta
+	cooldown += delta
 	
 	if is_on_floor() and velocity.length() < TUMBLE_THREASHOLD:
-		is_tumble = false
+		player_state = IDLE
 		
-	if tumble_time > 0.1:
-		tumble_time = 0.0
+	if cooldown > 0.1:
+		cooldown = 0.0
 		velocity.x *= 0.8
 	move_and_slide()
 
 func launch_player(launch_vector):
-	is_tumble = true
+	player_state = TUMBLE
 	velocity.x = launch_vector.x
 	velocity.y = launch_vector.y
 
 func do_punch(delta):
-	if punch_time < PUNCH_DELAY:
-			punch_time += delta
+	if cooldown < PUNCH_DELAY:
+			cooldown += delta
 	else:
 		hitbox.queue_free()
-		punch_time = 0.0
-		is_punching = false
+		cooldown = 0.0
+		player_state = IDLE
+
+func do_shield(delta):
+	if player_state == SHIELD:
+		if shield_timer < 0:
+			player_state = IDLE
+		else:
+			shield_timer -= delta
+	elif shield_timer < SHIELD_MAX:
+		shield_timer += delta
+		
 	
