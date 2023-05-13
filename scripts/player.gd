@@ -11,6 +11,7 @@ const PUNCH_DELAY = 0.2
 const TUMBLE_ROTATION = PI*2
 
 var player = ""
+var device = null
 var is_punching = false
 var punch_time = 0.0
 var hitbox = null
@@ -30,8 +31,10 @@ var input_dir
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-func set_player(index: int) -> void:
-	player = "p" + str(index + 1)
+func set_player(arg_device: String) -> void:
+	player = "p" + arg_device
+	device = arg_device
+	print_debug("new player: ", player)
 
 func take_damage(player_dir, player_vector) -> void:
 	launch_player(Vector3(
@@ -53,11 +56,6 @@ func _physics_process(delta):
 	if is_punching:
 		do_punch(delta)
 	
-	# Todo Remove this
-	if player != "p1":
-		move_and_slide()
-		return
-			
 	if  is_tumble:
 		animator.play("tumble")
 		

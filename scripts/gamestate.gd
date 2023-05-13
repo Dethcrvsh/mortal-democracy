@@ -6,6 +6,7 @@ const GAME_PLAYING = 3
 const GAME_END = 4
 
 var votes = {}
+var player_index_by_device = {}
 var text = null
 var state = INIT
 
@@ -17,9 +18,12 @@ func _process(_delta):
 		return
 		
 	var s = ""
-	for player in votes:
-		s += "%s votes: %d \n" % [player, int(votes[player])]
+	for device in player_index_by_device:
+		var player_index = player_index_by_device[device]
+		s += "player %s votes: %d \n" % [player_index+1, int(votes[device])]
 	text.text = s
-
+	
 func reset():
-	var votes = {}
+	votes = {}
+	player_index_by_device = {}
+	

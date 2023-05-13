@@ -15,16 +15,16 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if len(players_in_zone) == 1:
+	if len(players_in_zone) == 1 and gamestate.votes.has(players_in_zone[0]):
 		gamestate.votes[players_in_zone[0]] += delta * vote_rate
 
 func _on_body_entered(body: Node3D):
 	
 	if body.is_in_group("players"):
-		players_in_zone.append(body.player)
-		print_debug("player %s at podium" % body.player)
+		players_in_zone.append(body.device)
+		print_debug("player %s at podium" % body.device)
 
 func _on_body_exited(body: Node3D):
 	if body.is_in_group("players"):
-		players_in_zone.erase(body.player)
+		players_in_zone.erase(body.device)
 	
