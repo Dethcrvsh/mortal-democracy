@@ -7,6 +7,9 @@ const PLAYER_CONST = "p1"
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var last_move_dir = -1
+@onready var model = $person_model
+@onready var animator = $person_model/placeholder_person_run/AnimationPlayer
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -25,4 +28,15 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
+	# Flip model if we changed direction
+	if input_dir.x > 0 and last_move_dir < 0 or input_dir.x < 0 and last_move_dir > 0:
+		model.rotate_y(PI)
+		last_move_dir = input_dir.x
+	
+	# Play run animation if where moving
+	if velocity.x == 0:
+		animator.play("Idel")
+	else:
+		animator.play("Run", -1, abs(input_dir.x)*2)
+	
 	move_and_slide()
