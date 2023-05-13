@@ -61,6 +61,7 @@ func _physics_process(delta):
 			
 	if player_state == TUMBLE:
 		do_tumble(delta)
+		
 		return
 	elif player_state == PUNCH:
 		do_punch(delta)
@@ -105,7 +106,15 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 	# Play run animation if where moving
-	if velocity.x == 0:
+	if player_state == PUNCH and animator.current_animation != "ArmatureAction 2":
+		animator.play("ArmatureAction 2")
+		animator.advance(0.3)
+	elif not is_on_floor():
+		if velocity.y > 0:
+			animator.play("jump")
+		else:
+			animator.play("fall")
+	elif velocity.x == 0:
 		if animator.current_animation == "Run":
 			run_animation_timestamp = animator.current_animation_position
 			
