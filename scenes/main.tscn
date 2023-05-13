@@ -12,6 +12,7 @@ script = ExtResource("2_h5ook")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 5, 10)
+current = true
 
 [node name="PlayerHandler" type="Node3D" parent="."]
 script = ExtResource("2_ed27k")

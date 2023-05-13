@@ -10,6 +10,7 @@ const TUMBLE_DRAG = 0.8
 const PUNCH_DELAY = 0.2
 const SHIELD_MAX = 3.0
 const SHIELD_DMG_PENALTY = -0.5
+const TUMBLE_ROTATION = PI*2
 
 const IDLE = 0
 const PUNCH = 1
@@ -24,6 +25,9 @@ var shield_timer = SHIELD_MAX
 var hitbox = null
 var last_move_dir = -1
 var run_animation_timestamp = 0.0
+var rng = RandomNumberGenerator.new()
+var rotation_dir = 1
+var og_rotation = null
 var input_dir
 
 @onready var model = $person_model
@@ -45,6 +49,10 @@ func take_damage(player_dir, player_vector) -> void:
 		))
 		print(player + " took damage")
 		shield_timer += SHIELD_DMG_PENALTY 
+
+func _ready():
+	og_rotation = rotation
+	
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -77,7 +85,8 @@ func _physics_process(delta):
 	
 	elif Input.is_action_pressed("shield_" + player) and (player_state == IDLE or player_state == SHIELD):
 		player_state = SHIELD
-	else:
+	
+	elif Input.is_action_just_released("shield_" + player):
 		player_state = IDLE
 
 	# Get the input direction and handle the movement/deceleration.
@@ -118,20 +127,40 @@ func _physics_process(delta):
 	move_and_slide()
 
 func do_tumble(delta):
+	animator.play("tumble")
+	
+	rotate(Vector3(0.0, 0.0, 1.0), TUMBLE_ROTATION*delta*rotation_dir)
 	cooldown += delta
 	
 	if is_on_floor() and velocity.length() < TUMBLE_THREASHOLD:
-		player_state = IDLE
+		rotation = og_rotation
+		player_state = TUMBLE
 		
 	if cooldown > 0.1:
 		cooldown = 0.0
 		velocity.x *= 0.8
+	
+	var saved_velocity = velocity
+	
 	move_and_slide()
+	
+	var collision = get_slide_collision(0)
+	if collision:
+		var bounce_direction = collision.get_collider(0).global_position.direction_to(global_position)
+		velocity = saved_velocity.length()*0.5*bounce_direction
+	return
 
 func launch_player(launch_vector):
 	player_state = TUMBLE
 	velocity.x = launch_vector.x
 	velocity.y = launch_vector.y
+	
+	var random_i = rng.randi_range(0, 1)
+	print(random_i)
+	if random_i == 0:
+		rotation_dir = 1
+	else:
+		rotation_dir = -1
 
 func do_punch(delta):
 	if cooldown < PUNCH_DELAY:
