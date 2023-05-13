@@ -109,6 +109,11 @@ _data = {
 
 [node name="Jimmie Åkesson" type="Node3D" parent="."]
 
+[node name="SpotLight3D" type="SpotLight3D" parent="Jimmie Åkesson"]
+transform = Transform3D(0.909824, 0, 0.414995, -0.221165, -0.846156, 0.484877, 0.35115, -0.532935, -0.769853, 3.27675, 9.13433, -9.44775)
+light_color = Color(0.960784, 0.882353, 0, 1)
+spot_range = 4.84228
+
 [node name="Camera" type="Node3D" parent="Jimmie Åkesson"]
 transform = Transform3D(0.685921, 0.651558, 0.324014, 0, 0.445271, -0.895396, -0.727676, 0.61417, 0.305421, 7.35889, 4.95831, 6.92579)
 

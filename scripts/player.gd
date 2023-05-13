@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 
-const SPEED = 10
+const SPEED = 12
 const JUMP_VELOCITY = 25
 const HITBOX_OFFSET = Vector3(0.7, 0, 0)
 const TUMBLE_THREASHOLD = 5
