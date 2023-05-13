@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 
-const SPEED = 10
+const SPEED = 12
 const JUMP_VELOCITY = 25
 const HITBOX_OFFSET = Vector3(0.7, 0, 0)
 const TUMBLE_THREASHOLD = 5
@@ -67,6 +67,7 @@ func _physics_process(delta):
 			
 	if player_state == TUMBLE:
 		do_tumble(delta)
+		
 		return
 
 	do_shield(delta)
@@ -83,6 +84,8 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY
 	
 	elif Input.is_action_just_pressed("attack_" + player) and player_state == IDLE and can_punch:
+		animator.play("ArmatureAction 2")
+		animator.speed_scale = 1.0
 		do_punch()
 	
 	elif Input.is_action_just_pressed("shield_" + player) and (player_state == IDLE or player_state == SHIELD):
@@ -116,16 +119,23 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 	# Play run animation if where moving
-	if velocity.x == 0:
-		if animator.current_animation == "Run":
-			run_animation_timestamp = animator.current_animation_position
-			
-		animator.play("Idel")
-	else:
-		if animator.current_animation != "Run":
-			animator.play("Run")
-			animator.advance(run_animation_timestamp)
-		animator.speed_scale = abs(input_dir.x)*4
+	
+	if punch_cooldown <= 0:
+		if not is_on_floor():
+			if velocity.y > 0:
+				animator.play("jump")
+			else:
+				animator.play("fall")
+		elif velocity.x == 0:
+			if animator.current_animation == "Run":
+				run_animation_timestamp = animator.current_animation_position
+				
+			animator.play("Idel")
+		else:
+			if animator.current_animation != "Run":
+				animator.play("Run")
+				animator.advance(run_animation_timestamp)
+			animator.speed_scale = abs(input_dir.x)*4
 
 	if Input.is_action_just_pressed("test_launch_p1"):
 		launch_player(Vector3(10.0, 40.0, 0.0))
