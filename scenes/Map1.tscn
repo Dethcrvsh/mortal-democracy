@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bceevbvq4qyh6"]
 
 [ext_resource type="PackedScene" uid="uid://da4bmar1xqjac" path="res://scenes/Platform1.tscn" id="1_2wfer"]
-[ext_resource type="PackedScene" uid="uid://gjj2shypyqs" path="res://scenes/Goal.tscn" id="2_8vwla"]
+[ext_resource type="PackedScene" path="res://scenes/Goal.tscn" id="2_8vwla"]
 
 [node name="Map1" type="Node3D"]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
