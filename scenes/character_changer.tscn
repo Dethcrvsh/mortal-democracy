@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkwa3ru7esa1j"]
+
+[ext_resource type="Script" path="res://CharacterChanger.gd" id="1_5tjkk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xhs85"]
+size = Vector3(2, 2, 2)
+
+[node name="CharacterChanger" type="Area3D"]
+script = ExtResource("1_5tjkk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_xhs85")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

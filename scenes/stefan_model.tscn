@@ -1,12 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://cpcohsqxi1n55"]
+[gd_scene load_steps=11 format=3 uid="uid://cpcohsqxi1n55"]
 
-[ext_resource type="Texture2D" path="res://Assets/Models/Stefan_Löfven_steffe.png" id="1_2lpps"]
+[ext_resource type="Texture2D" uid="uid://d0fmwogrr8bhb" path="res://Assets/Models/Stefan_Löfven_steffe.png" id="1_2lpps"]
 [ext_resource type="Animation" uid="uid://k65i5cvsxo3s" path="res://Assets/Models/ArmatureAction.res" id="2_oegel"]
 [ext_resource type="Animation" uid="uid://de6nd1osovm52" path="res://Assets/Models/Idel.res" id="3_c1p8i"]
 [ext_resource type="Animation" uid="uid://bmr4xgufmw5op" path="res://Assets/Models/animation.res" id="4_gs17h"]
 [ext_resource type="Animation" uid="uid://dxmq2uikcd34p" path="res://Assets/Models/fall.res" id="5_h2wst"]
 [ext_resource type="Animation" uid="uid://cj5b52ysxqyur" path="res://Assets/Models/jump.res" id="6_7u5ni"]
-[ext_resource type="Animation" uid="uid://rdmrcwnud04w" path="res://Assets/Models/tumble.res" id="7_uqnno"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x4ktq"]
 resource_name = "Material"
@@ -101,12 +100,10 @@ _data = {
 "Idel": ExtResource("3_c1p8i"),
 "Run": ExtResource("4_gs17h"),
 "fall": ExtResource("5_h2wst"),
-"jump": ExtResource("6_7u5ni"),
-"tumble": ExtResource("7_uqnno")
+"jump": ExtResource("6_7u5ni")
 }
 
 [node name="Model" type="Node3D"]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [node name="Camera" type="Node3D" parent="."]
 transform = Transform3D(0.685921, 0.651558, 0.324014, 0, 0.445271, -0.895396, -0.727676, 0.61417, 0.305421, 7.35889, 4.95831, 6.92579)
