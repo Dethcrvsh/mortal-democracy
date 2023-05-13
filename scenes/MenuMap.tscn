@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cf5gdjh14p348"]
+[gd_scene load_steps=4 format=3 uid="uid://dqhh5n0g2ejap"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_1ekv2"]
 [ext_resource type="PackedScene" uid="uid://bkoeeqyhqgy0l" path="res://scenes/Platform2.tscn" id="2_we57d"]
@@ -54,4 +54,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3079, 11.3272, 9.53674e-07
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6201, 11.2718, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 6, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 6, 11.7335)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.695085, 0, -0.718927, 0.332398, 0.886696, 0.321374, 0.63747, -0.462352, 0.616329, 0, 0, 0)

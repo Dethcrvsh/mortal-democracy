@@ -33,10 +33,11 @@ var shield = null
 var punch_cooldown = 0.0
 var can_punch = true
 
-@onready var model = $model
+@onready var model = $Model
+@onready var animator = $Model/AnimationPlayer
 @onready var hitbox_node = load("res://scenes/hitbox.tscn")
-@onready var animator = $"model/Jimmie Åkesson/AnimationPlayer"
 @onready var shield_node = load("res://scenes/shield.tscn")
+@onready var jimmie_model = load("res://scenes/jimmie_model.tscn")
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -138,7 +139,7 @@ func _physics_process(delta):
 			animator.speed_scale = abs(input_dir.x)*4
 
 	if Input.is_action_just_pressed("test_launch_p1"):
-		launch_player(Vector3(10.0, 40.0, 0.0))
+		change_character(jimmie_model.instantiate())
 	
 	move_and_slide()
 
@@ -194,3 +195,12 @@ func do_shield(delta):
 			shield_timer -= delta
 	elif shield_timer < SHIELD_MAX:
 		shield_timer += delta
+		
+func change_character(new_model):
+	var model_transform = model.transform
+	new_model.transform = model_transform
+	model.queue_free()
+	model = new_model
+	animator = new_model.get_node("AnimationPlayer")
+	add_child(model)
+
