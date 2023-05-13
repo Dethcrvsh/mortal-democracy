@@ -19,8 +19,8 @@ const SHIELD = 3
 
 var player_state = 0
 var player = ""
+var device = null
 var cooldown = 0.0
-
 var shield_timer = SHIELD_MAX
 var hitbox = null
 var last_move_dir = -1
@@ -41,8 +41,10 @@ var can_punch = true
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-func set_player(index: int) -> void:
-	player = "p" + str(index + 1)
+func set_player(arg_device: String) -> void:
+	player = "p" + arg_device
+	device = arg_device
+	print_debug("new player: ", player)
 
 func take_damage(player_dir, player_vector) -> void:
 	if not player_state == SHIELD:
