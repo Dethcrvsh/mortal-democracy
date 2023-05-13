@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://crjt2eg7ebjdb"]
+[gd_scene load_steps=5 format=3 uid="uid://d23a0017eqbwr"]
 
 [ext_resource type="PackedScene" uid="uid://da4bmar1xqjac" path="res://scenes/Platform1.tscn" id="1_hv637"]
 [ext_resource type="PackedScene" uid="uid://gjj2shypyqs" path="res://scenes/Goal.tscn" id="2_hargo"]

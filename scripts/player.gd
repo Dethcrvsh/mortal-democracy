@@ -107,6 +107,7 @@ func _physics_process(delta):
 	
 	# Play run animation if where moving
 	if player_state == PUNCH and animator.current_animation != "ArmatureAction 2":
+		print("here")
 		animator.play("ArmatureAction 2")
 		animator.advance(0.3)
 	elif not is_on_floor():
