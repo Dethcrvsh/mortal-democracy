@@ -30,9 +30,9 @@ var rotation_dir = 1
 var og_rotation = null
 var input_dir
 
-@onready var model = $person_model
+@onready var model = $model
 @onready var hitbox_node = load("res://scenes/hitbox.tscn")
-@onready var animator = $person_model/placeholder_person_run/AnimationPlayer
+@onready var animator = $"model/Jimmie Åkesson/AnimationPlayer"
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
