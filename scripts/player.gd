@@ -106,10 +106,9 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 	# Play run animation if where moving
-	if player_state == PUNCH and animator.current_animation != "ArmatureAction 2":
-		print("here")
+	if player_state == PUNCH:
 		animator.play("ArmatureAction 2")
-		animator.advance(0.3)
+		
 	elif not is_on_floor():
 		if velocity.y > 0:
 			animator.play("jump")
