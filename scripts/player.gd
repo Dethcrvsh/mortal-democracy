@@ -4,7 +4,7 @@ extends CharacterBody3D
 const SPEED = 10
 const JUMP_VELOCITY = 25
 const HITBOX_OFFSET = Vector3(0.7, 0, 0)
-const TUMBLE_THREASHOLD = 1
+const TUMBLE_THREASHOLD = 5
 const TUMBLE_DRAG = 0.8
 # The tick coldown for a punch
 const PUNCH_DELAY = 0.2
@@ -66,11 +66,6 @@ func _physics_process(delta):
 		do_punch(delta)
 
 	do_shield(delta)
-	
-	# Todo Remove this
-	if player != "p1":
-		move_and_slide()
-		return
 
 	# Handle Jump.
 	if Input.is_action_just_pressed("jump_" + player) and is_on_floor():
@@ -116,7 +111,7 @@ func _physics_process(delta):
 			
 		animator.play("Idel")
 	else:
-		if animator.current_animation == "Idel":
+		if animator.current_animation != "Run":
 			animator.play("Run")
 			animator.advance(run_animation_timestamp)
 		animator.speed_scale = abs(input_dir.x)*4
@@ -134,7 +129,7 @@ func do_tumble(delta):
 	
 	if is_on_floor() and velocity.length() < TUMBLE_THREASHOLD:
 		rotation = og_rotation
-		player_state = TUMBLE
+		player_state = IDLE
 		
 	if cooldown > 0.1:
 		cooldown = 0.0
@@ -156,7 +151,6 @@ func launch_player(launch_vector):
 	velocity.y = launch_vector.y
 	
 	var random_i = rng.randi_range(0, 1)
-	print(random_i)
 	if random_i == 0:
 		rotation_dir = 1
 	else:
