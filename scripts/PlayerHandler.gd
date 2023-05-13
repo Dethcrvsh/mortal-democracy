@@ -6,6 +6,12 @@ var players = []
 @onready var player_node = load("res://scenes/player.tscn")
 @onready var map = get_tree().get_first_node_in_group("maps")
 
+func _ready():
+	spawn_new_player()
+	spawn_new_player()
+	spawn_new_player()
+	spawn_new_player()
+
 func set_map(map_node) -> void:
 	map = map_node
 
