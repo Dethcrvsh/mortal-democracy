@@ -1,15 +1,18 @@
 extends Node3D
 
+const INIT = 1
+const MAIN_MENU = 2
+const GAME_PLAYING = 3
+const GAME_END = 4
 
 var votes = {"p1": 0}
 var text = null
+var state = INIT
 
 func _ready():
 	text = get_node("vote_text")
 
-func _process(delta):
-	print_debug(votes)
-	
+func _process(_delta):
 	if text == null:
 		return
 		
