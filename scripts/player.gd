@@ -7,7 +7,7 @@ const HITBOX_OFFSET = Vector3(0.7, 0, 0)
 const TUMBLE_THREASHOLD = 5
 const TUMBLE_DRAG = 0.8
 # The tick coldown for a punch
-const PUNCH_DELAY = 0.2
+const PUNCH_DELAY = 0.5
 const SHIELD_MAX = 3.0
 const SHIELD_DMG_PENALTY = -0.5
 const TUMBLE_ROTATION = PI*2
@@ -30,6 +30,8 @@ var rotation_dir = 1
 var og_rotation = null
 var input_dir
 var shield = null
+var punch_cooldown = 0.0
+var can_punch = true
 
 @onready var model = $model
 @onready var hitbox_node = load("res://scenes/hitbox.tscn")
@@ -62,26 +64,24 @@ func _physics_process(delta):
 		velocity.y -= gravity * delta
 			
 	if player_state == TUMBLE:
-		if player_state == PUNCH:
-			hitbox.queue_free()
-			cooldown = 0.0
 		do_tumble(delta)
 		return
-	elif player_state == PUNCH:
-		do_punch(delta)
 
 	do_shield(delta)
+	
+	# Handle punches
+	if punch_cooldown <= 0.0:
+		can_punch = true
+	else:
+		can_punch = false
+		punch_cooldown -= delta
 
 	# Handle Jump.
 	if Input.is_action_just_pressed("jump_" + player) and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	
-	elif Input.is_action_just_pressed("attack_" + player) and player_state == IDLE:
-		hitbox = hitbox_node.instantiate()
-		hitbox.position += HITBOX_OFFSET * last_move_dir
-		hitbox.set_player(self)
-		add_child(hitbox)
-		player_state = PUNCH
+	elif Input.is_action_just_pressed("attack_" + player) and player_state == IDLE and can_punch:
+		do_punch()
 	
 	elif Input.is_action_just_pressed("shield_" + player) and (player_state == IDLE or player_state == SHIELD):
 		player_state = SHIELD
@@ -165,13 +165,13 @@ func launch_player(launch_vector):
 	else:
 		rotation_dir = -1
 
-func do_punch(delta):
-	if cooldown < PUNCH_DELAY:
-			cooldown += delta
-	else:
-		hitbox.queue_free()
-		cooldown = 0.0
-		player_state = IDLE
+func do_punch():
+	hitbox = hitbox_node.instantiate()
+	hitbox.position += HITBOX_OFFSET * last_move_dir
+	hitbox.set_player(self)
+	add_child(hitbox)
+	punch_cooldown = PUNCH_DELAY
+	can_punch = false
 
 func do_shield(delta):
 	if player_state == SHIELD:
