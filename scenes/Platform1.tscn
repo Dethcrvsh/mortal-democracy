@@ -3,8 +3,8 @@
 [sub_resource type="BoxMesh" id="BoxMesh_jbswu"]
 size = Vector3(2, 0.2, 1)
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_s786d"]
-points = PackedVector3Array(0.954305, 0.0995948, 0.5, -1.01587, -0.115851, -0.515873, -0.958011, 0.1, -0.486038, 1.01587, -0.115851, -0.515873, -1.01587, -0.115851, 0.531746, 1.01587, -0.115851, 0.531746, 0.958011, 0.1, -0.486038, -0.954305, 0.0995948, 0.5)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_jq8ft"]
+points = PackedVector3Array(-1, -0.1, -0.5, -1, 0.1, -0.5, 1, -0.1, -0.5, -1, -0.1, 0.5, -1, 0.1, 0.5, 1, 0.1, -0.5, 1, -0.1, 0.5, 1, 0.1, 0.5)
 
 [node name="Platform1" type="StaticBody3D"]
 
@@ -12,4 +12,4 @@ points = PackedVector3Array(0.954305, 0.0995948, 0.5, -1.01587, -0.115851, -0.51
 mesh = SubResource("BoxMesh_jbswu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("ConvexPolygonShape3D_s786d")
+shape = SubResource("ConvexPolygonShape3D_jq8ft")
