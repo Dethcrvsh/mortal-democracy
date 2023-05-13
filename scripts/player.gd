@@ -8,6 +8,7 @@ const PLAYER_CONST = "p1"
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var last_move_dir = -1
+var is_tumble = false
 @onready var model = $person_model
 @onready var animator = $person_model/placeholder_person_run/AnimationPlayer
 
