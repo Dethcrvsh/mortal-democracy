@@ -21,7 +21,7 @@ func _input(event):
 			new_player = true
 			players_entered.append(event.device)
 	
-	if event is InputEventKey or event is InputEventMouseButton:
+	if (event is InputEventKey or event is InputEventMouseButton) and event.pressed:
 		if not players_entered.any(func(id): return id == KEYBOARD_ID):
 			print_debug("keyboard joined")
 			new_player = true
@@ -43,4 +43,4 @@ func _process(_delta):
 		new_player = false
 
 func _start_button_pressed():
-	get_parent().start_game(self)
+	get_parent().start_game()

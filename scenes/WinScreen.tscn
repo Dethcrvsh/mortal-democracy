@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsi1ga62jdjro"]
+
+[ext_resource type="Script" path="res://scripts/win_screen.gd" id="1_jsrqv"]
+
+[node name="WinScreen" type="Node3D"]
+script = ExtResource("1_jsrqv")
+
+[node name="Text" type="RichTextLabel" parent="."]
+offset_left = 42.0
+offset_top = 108.0
+offset_right = 442.0
+offset_bottom = 208.0
+scale = Vector2(5, 5)
+text = "WIN"

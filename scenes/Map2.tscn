@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://cf5gdjh14p348"]
+
+[ext_resource type="PackedScene" uid="uid://bkoeeqyhqgy0l" path="res://scenes/Platform2.tscn" id="1_ij6am"]
+[ext_resource type="PackedScene" uid="uid://da4bmar1xqjac" path="res://scenes/Platform1.tscn" id="2_i2ivy"]
+[ext_resource type="PackedScene" uid="uid://gjj2shypyqs" path="res://scenes/Goal.tscn" id="3_j4c4n"]
+
+[node name="Map" type="Node3D"]
+
+[node name="Floor1" type="Node3D" parent="."]
+
+[node name="Platform1" parent="Floor1" instance=ExtResource("1_ij6am")]
+
+[node name="Platform2" parent="Floor1" instance=ExtResource("1_ij6am")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
+
+[node name="Platform3" parent="Floor1" instance=ExtResource("1_ij6am")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
+
+[node name="Platform4" parent="Floor1" instance=ExtResource("1_ij6am")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
+
+[node name="Floor2" type="Node3D" parent="."]
+
+[node name="Platform1" parent="Floor2" instance=ExtResource("2_i2ivy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, 0)
+
+[node name="Platform2" parent="Floor2" instance=ExtResource("1_ij6am")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 3, 0)
+
+[node name="Platform3" parent="Floor2" instance=ExtResource("1_ij6am")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 0)
+
+[node name="Floor3" type="Node3D" parent="."]
+
+[node name="Platform5" parent="Floor3" instance=ExtResource("1_ij6am")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 6, 0)
+
+[node name="Goal" parent="." instance=ExtResource("3_j4c4n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 6, 0)
