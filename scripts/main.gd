@@ -11,6 +11,7 @@ var map = null
 @onready var win_screen_asset = load("res://scenes/WinScreen.tscn")
 @onready var main_menu_asset = load("res://scenes/MainMenu.tscn")
 @onready var map1_asset = load("res://scenes/Map1.tscn")
+@onready var map2_asset = load("res://scenes/Map2.tscn")
 @onready var menu_map_asset = load("res://scenes/MenuMap.tscn")
 
 func _ready():
@@ -44,7 +45,7 @@ func start_game():
 	main_menu.queue_free()
 	if map != null: 
 		map.queue_free()
-	map = map1_asset.instantiate()
+	map = map2_asset.instantiate()
 	add_child(map)
 	player_handler.set_map(map)
 	player_handler.despawn_players()

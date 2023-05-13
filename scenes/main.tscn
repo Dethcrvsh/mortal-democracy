@@ -1,18 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://dt8xwe573wesg"]
 
-[ext_resource type="PackedScene" path="res://scenes/Map2.tscn" id="1_fjmnx"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_74ure"]
 [ext_resource type="Script" path="res://scripts/PlayerHandler.gd" id="2_ed27k"]
-[ext_resource type="Script" path="res://scenes/map.gd" id="2_h5ook"]
+[ext_resource type="PackedScene" uid="uid://bikj55cxc5ntv" path="res://scenes/Gamestate.tscn" id="3_tqnbc"]
 
 [node name="main" type="Node3D"]
-
-[node name="Map2" parent="." groups=["maps"] instance=ExtResource("1_fjmnx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-script = ExtResource("2_h5ook")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 10)
-current = true
+script = ExtResource("1_74ure")
 
 [node name="PlayerHandler" type="Node3D" parent="."]
 script = ExtResource("2_ed27k")
+
+[node name="Gamestate" parent="." instance=ExtResource("3_tqnbc")]
