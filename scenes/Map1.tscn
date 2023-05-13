@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://be7ab3g8m2wev"]
+[gd_scene load_steps=3 format=3 uid="uid://bceevbvq4qyh6"]
 
 [ext_resource type="PackedScene" uid="uid://da4bmar1xqjac" path="res://scenes/Platform1.tscn" id="1_2wfer"]
-[ext_resource type="PackedScene" uid="uid://b7p316tpqry1e" path="res://scenes/player.tscn" id="2_1ow17"]
-[ext_resource type="PackedScene" uid="uid://gjj2shypyqs" path="res://scenes/Goal.tscn" id="2_8vwla"]
+[ext_resource type="PackedScene" path="res://scenes/Goal.tscn" id="2_8vwla"]
 
 [node name="Map1" type="Node3D"]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
@@ -24,8 +23,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.84552, 2.3, 0)
 [node name="Goal" parent="." instance=ExtResource("2_8vwla")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4.5, 0)
 
-[node name="Player" parent="." instance=ExtResource("2_1ow17")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.97586, 3.80287, 0)
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.704095, -0.478814, 0.524392, 0.384011, 0.877916, 0.286003, -0.597315, -8.64267e-07, 0.802007, 0, 0, 0)
+
+[node name="SpawnPoints" type="Node3D" parent="."]
+
+[node name="1" type="Node3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.98, 2.442, 0)
+
+[node name="2" type="Node3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.692, 2, 0)
+
+[node name="3" type="Node3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.451, 2.635, 0)
+
+[node name="4" type="Node3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
