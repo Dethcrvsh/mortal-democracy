@@ -14,7 +14,6 @@ func _ready():
 	main = get_parent()
 
 func register_player_prompt(text: RichTextLabel):
-	print_debug(text, " registered")
 	player_prompts.append(text)
 
 func _input(event):

@@ -52,8 +52,6 @@ var annie_timer = ANNIE_COOLDOWN
 var talking = false
 var shield_cooldown = 0.0
 
-
-
 var stefan_special = null
 var stefan_special_cooldown = 0
 var ulf_special = null
@@ -80,17 +78,19 @@ var collision_shape: CollisionShape3D = null
 @onready var iron_bar_model = load("res://scenes/IronBar.tscn")
 @onready var shoe_scene = load("res://scenes/shoe.tscn")
 
+@onready var jimmy_model = load("res://scenes/jimmie_with_jarnror.tscn")
+@onready var annie_model = load("res://scenes/annie_model.tscn")
+@onready var stefan_model = load("res://scenes/stefan_model.tscn")
+@onready var ulf_model = load("res://scenes/ulf_model.tscn")
+var id_to_model = null
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func set_player(arg_device: String) -> void:
 	player = "p" + arg_device
 	device = arg_device
-	print_debug("new player: ", player)
 	
-func set_character(arg_character_id: int):
-	character_id = arg_character_id
-
 func take_damage(player_dir, player_vector, scale) -> void:
 	if character_id == 0 and player_state == SPECIAL:
 		return
@@ -115,12 +115,18 @@ func take_damage(player_dir, player_vector, scale) -> void:
 		audio_player2.play()
 
 func _ready():
+	id_to_model = {0:jimmy_model, 1:annie_model, 2:stefan_model, 3:ulf_model}
 	og_rotation = rotation
 	og_model_transform = model.transform
 	collision_shape = get_node("CollisionShape3D")
 	add_child(audio_player)
 	add_child(audio_player2)
 	audio_player.stream = test_audio
+	var random_character = rng.randi_range(0, 3)
+	var random_character_scale = Vector3(1,1,1)
+	if random_character == 3:
+		random_character_scale *= 0.6
+	change_character(random_character, random_character_scale)
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -413,18 +419,21 @@ func do_jimmie_special(delta):
 	
 	cooldown -= delta
 		
-func change_character(char_id, new_model, new_scale = Vector3(1, 1, 1)):
+func change_character(char_id, new_scale = Vector3(1, 1, 1)):
 	character_id = char_id
-	new_model.transform = og_model_transform.scaled(new_scale)
-	new_model.rotation = model.rotation
+	var model_instance = id_to_model[character_id].instantiate()
+	print_debug("character id: ", character_id)
+	model_instance.transform = og_model_transform.scaled(new_scale)
+	model_instance.rotation = model.rotation
 	self.rotation.z = 0
-	new_model.position.y = -0.4 + 0.7*(new_scale.y-1)
+	model_instance.position.y = -0.4 + 0.7*(new_scale.y-1)
 	model.queue_free()
-	model = new_model
-	animator = new_model.get_node("AnimationPlayer")
+	model = model_instance
+	animator = model.get_node("AnimationPlayer")
 	add_child(model)
 	player_state = IDLE
 	
+	# ulf christerson magic
 	if character_id == 3:
 		collision_shape.shape.height = 1
 		collision_shape.position.y = -0.3

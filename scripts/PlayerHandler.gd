@@ -7,7 +7,6 @@ var players = []
 @onready var map = get_tree().get_first_node_in_group("maps")
 
 func set_map(map_node) -> void:
-	print_debug("map set to %s" % map_node)
 	map = map_node
 
 func spawn_new_player(device) -> int:
