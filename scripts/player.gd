@@ -12,11 +12,22 @@ const SHIELD_MAX = 1.0
 const SHIELD_DMG_PENALTY = -0.5
 const TUMBLE_ROTATION = PI*2
 
+const JIMMIE_SPECIAL_DELAY = 1.0
+const JIMMIE_SPECIAL_RAMP_UP = 0.5
+const JIMMIE_HITBOX_OFFSET = Vector3(2.0, 0, 0)
+const JIMMIE_SPECIAL_COOLDOWN_MAX = 5.0
+
+var jimmie_special_cooldown = 0.0
+var is_jimmie_special_spawned = false
+
 const IDLE = 0
 const PUNCH = 1
 const TUMBLE = 2
 const SHIELD = 3
 const SPECIAL = 4
+const SHOE_SPEED = 20
+const SHOE_OFFSET = Vector3(0.3, 0.8, 0)
+const ANNIE_COOLDOWN = 1.0
 
 var player_state = 0
 var player = ""
@@ -36,6 +47,7 @@ var punch_cooldown = 0.0
 var can_punch = true
 var can_special = true
 var character_id = 0
+var annie_timer = ANNIE_COOLDOWN
 
 var stefan_special = null
 var stefan_special_cooldown = 0
@@ -43,9 +55,12 @@ var stefan_special_cooldown = 0
 @onready var model = $Model
 @onready var animator = $Model/AnimationPlayer
 @onready var hitbox_node = load("res://scenes/hitbox.tscn")
+@onready var jimmie_hitbox_node = load("res://scenes/jimmie_hitbox.tscn")
 @onready var shield_node = load("res://scenes/shield.tscn")
 @onready var jimmie_model = load("res://scenes/jimmie_model.tscn")
 @onready var stefan_special_asset = load("res://scenes/SpecialAttackStefan.tscn")
+@onready var iron_bar_model = load("res://scenes/IronBar.tscn")
+@onready var shoe_scene = load("res://scenes/shoe.tscn")
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -58,11 +73,12 @@ func set_player(arg_device: String) -> void:
 func set_character(arg_character_id: int):
 	character_id = arg_character_id
 
-func take_damage(player_dir, player_vector) -> void:
+func take_damage(player_dir, player_vector, scale) -> void:
 	if not player_state == SHIELD:
+		# TODO: jimmie
 		launch_player(Vector3(
-			10.0 * player_dir + 10 * player_vector.x, 
-			20.0 + 20.0 * player_vector.y * -1, 
+			(10.0 * player_dir + 10 * player_vector.x) * scale, 
+			(20.0 + 20.0 * player_vector.y * -1) * scale, 
 			0
 		))
 		print(player + " took damage")
@@ -88,9 +104,13 @@ func _physics_process(delta):
 	
 	if player_state == SPECIAL:
 		do_special(delta)
+		move_and_slide()
 		return
 
 	do_shield(delta)
+	
+	if jimmie_special_cooldown >= 0.0:
+		jimmie_special_cooldown -= delta
 	
 	# Handle punches
 	if punch_cooldown <= 0.0:
@@ -118,11 +138,14 @@ func _physics_process(delta):
 		if shield != null:
 			shield.queue_free()
 	
+
 	if Input.is_action_just_pressed("special_" + player) and player_state == IDLE and check_special():
 		player_state = SPECIAL
 		init_special()
-		return
 
+	if annie_timer <= ANNIE_COOLDOWN:
+		annie_timer += delta
+		
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	input_dir = Input.get_vector("left_" + player, 
@@ -165,9 +188,6 @@ func _physics_process(delta):
 				animator.play("Run")
 				animator.advance(run_animation_timestamp)
 			animator.speed_scale = abs(input_dir.x)*4
-
-	if Input.is_action_just_pressed("test_launch_p1"):
-		change_character(jimmie_model.instantiate(), Vector3(3, 3, 3))
 	
 	move_and_slide()
 
@@ -227,6 +247,15 @@ func do_shield(delta):
 func init_special():
 	print_debug("special initialied by ", player)
 	
+	#jimmie
+	if character_id == 0:
+		cooldown = JIMMIE_SPECIAL_DELAY
+		velocity.x = 0
+		
+	# annie
+	if character_id == 1:
+		annie_special()
+	
 	# stefan
 	if character_id == 2: 
 		stefan_special = stefan_special_asset.instantiate()
@@ -236,6 +265,16 @@ func init_special():
 
 func do_special(delta):
 	
+	print_debug("special initialied by ", player, "as ", character_id)
+	
+	#jimmie
+	if character_id == 0:
+		do_jimmie_special(delta)
+		
+	# annie
+	if character_id == 1:
+		annie_special()
+	
 	# stefan
 	if character_id == 2:
 		if stefan_special == null:
@@ -244,14 +283,40 @@ func do_special(delta):
 		return
 
 func check_special():
+	
+	if (character_id == 0 and jimmie_special_cooldown <= 0.0) or (character_id == 1):
+		return true
+		
 	# stefan
 	if character_id == 2:
 		if stefan_special_cooldown > 0:
 			return false
 		return true
 	return false
+
+
+func do_jimmie_special(delta):
+	if jimmie_special_cooldown <= 0.0:
+		if cooldown <= 0.0:
+			cooldown = 0.0
+			player_state = IDLE
+			is_jimmie_special_spawned = false
+			jimmie_special_cooldown = JIMMIE_SPECIAL_COOLDOWN_MAX
+			return
+		elif cooldown <= JIMMIE_SPECIAL_RAMP_UP and not is_jimmie_special_spawned:
+			#Spawn the hitbox
+			var hitbox = jimmie_hitbox_node.instantiate()
+			hitbox.set_player(self)
+			hitbox.position += JIMMIE_HITBOX_OFFSET * last_move_dir
+			hitbox.max_timer = JIMMIE_SPECIAL_DELAY - JIMMIE_SPECIAL_RAMP_UP
+			
+			add_child(hitbox)
+			is_jimmie_special_spawned = true
+	
+	cooldown -= delta
 		
-func change_character(new_model, new_scale = Vector3(1, 1, 1)):
+func change_character(char_id, new_model, new_scale = Vector3(1, 1, 1)):
+	character_id = char_id
 	new_model.transform = og_model_transform.scaled(new_scale)
 	new_model.rotation = model.rotation
 	new_model.position.y = -0.4 + 0.7*(new_scale.y-1)
@@ -259,4 +324,15 @@ func change_character(new_model, new_scale = Vector3(1, 1, 1)):
 	model = new_model
 	animator = new_model.get_node("AnimationPlayer")
 	add_child(model)
+	player_state = IDLE
 
+func annie_special():
+	if annie_timer > ANNIE_COOLDOWN:
+		var shoe_inst = shoe_scene.instantiate()
+		get_parent().add_child(shoe_inst)
+		shoe_inst.set_player(self)
+		shoe_inst.set_spawn_dir(last_move_dir)
+		shoe_inst.set_linear_velocity(Vector3(last_move_dir*SHOE_SPEED, SHOE_SPEED/6, 0))
+		shoe_inst.global_position = global_position + Vector3(SHOE_OFFSET.x*last_move_dir, SHOE_OFFSET.y, 0)
+		annie_timer = 0.0
+	player_state = IDLE

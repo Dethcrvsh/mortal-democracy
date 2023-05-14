@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://2ehpk2agf5mq"]
 
-[ext_resource type="Script" path="res://CharacterChanger.gd" id="1_5tjkk"]
+[ext_resource type="Script" path="res://scripts/CharacterChanger.gd" id="1_5tjkk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xhs85"]
 
