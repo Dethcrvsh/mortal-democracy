@@ -35,7 +35,7 @@ var shield = null
 var punch_cooldown = 0.0
 var can_punch = true
 var can_special = true
-var character = null
+var character_id = 0
 
 @onready var model = $Model
 @onready var animator = $Model/AnimationPlayer
@@ -46,11 +46,13 @@ var character = null
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-func set_player(arg_device: String, arg_character: int) -> void:
+func set_player(arg_device: String) -> void:
 	player = "p" + arg_device
 	device = arg_device
-	character = arg_character
 	print_debug("new player: ", player)
+	
+func set_character(arg_character_id: int):
+	character_id = arg_character_id
 
 func take_damage(player_dir, player_vector) -> void:
 	if not player_state == SHIELD:
