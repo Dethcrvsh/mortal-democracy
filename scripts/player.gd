@@ -28,15 +28,17 @@ var run_animation_timestamp = 0.0
 var rng = RandomNumberGenerator.new()
 var rotation_dir = 1
 var og_rotation = null
+var og_model_transform 
 var input_dir
 var shield = null
 var punch_cooldown = 0.0
 var can_punch = true
 
-@onready var model = $model
+@onready var model = $Model
+@onready var animator = $Model/AnimationPlayer
 @onready var hitbox_node = load("res://scenes/hitbox.tscn")
-@onready var animator = $"model/Jimmie Åkesson/AnimationPlayer"
 @onready var shield_node = load("res://scenes/shield.tscn")
+@onready var jimmie_model = load("res://scenes/jimmie_model.tscn")
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -58,6 +60,7 @@ func take_damage(player_dir, player_vector) -> void:
 
 func _ready():
 	og_rotation = rotation
+	og_model_transform = model.transform
 	
 
 func _physics_process(delta):
@@ -143,7 +146,7 @@ func _physics_process(delta):
 			animator.speed_scale = abs(input_dir.x)*4
 
 	if Input.is_action_just_pressed("test_launch_p1"):
-		launch_player(Vector3(10.0, 40.0, 0.0))
+		change_character(jimmie_model.instantiate(), Vector3(3, 3, 3))
 	
 	move_and_slide()
 
@@ -199,3 +202,13 @@ func do_shield(delta):
 			shield_timer -= delta
 	elif shield_timer < SHIELD_MAX:
 		shield_timer += delta
+		
+func change_character(new_model, new_scale = Vector3(1, 1, 1)):
+	new_model.transform = og_model_transform.scaled(new_scale)
+	new_model.rotation = model.rotation
+	new_model.position.y = -0.4 + 0.5*(new_scale.y-1)
+	model.queue_free()
+	model = new_model
+	animator = new_model.get_node("AnimationPlayer")
+	add_child(model)
+

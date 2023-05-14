@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cf5gdjh14p348"]
+[gd_scene load_steps=9 format=3 uid="uid://dqhh5n0g2ejap"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_1ekv2"]
 [ext_resource type="PackedScene" uid="uid://bkoeeqyhqgy0l" path="res://scenes/Platform2.tscn" id="2_we57d"]
-[ext_resource type="PackedScene" uid="uid://da4bmar1xqjac" path="res://scenes/Platform1.tscn" id="3_lrvjl"]
+[ext_resource type="Script" path="res://scenes/CharacterChangesMaster.gd" id="3_h657m"]
+[ext_resource type="PackedScene" uid="uid://bkwa3ru7esa1j" path="res://scenes/character_changer.tscn" id="3_ppmdg"]
+[ext_resource type="Texture2D" uid="uid://ch8rfnu6a7l50" path="res://Assets/headshots/akesson.png" id="4_k1el4"]
+[ext_resource type="Texture2D" uid="uid://cbiuhuaxgrcfe" path="res://Assets/headshots/annie.png" id="6_a5w2p"]
+[ext_resource type="Texture2D" uid="uid://c1j2avryg6av2" path="res://Assets/headshots/steffe.png" id="7_esd25"]
+[ext_resource type="Texture2D" uid="uid://cctmiuqynkexv" path="res://Assets/headshots/uffe.png" id="8_r323d"]
 
 [node name="Map" type="Node3D"]
 script = ExtResource("1_1ekv2")
@@ -10,48 +15,84 @@ script = ExtResource("1_1ekv2")
 [node name="Floor1" type="Node3D" parent="."]
 
 [node name="Platform1" parent="Floor1" instance=ExtResource("2_we57d")]
-
-[node name="Platform2" parent="Floor1" instance=ExtResource("2_we57d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
-
-[node name="Platform3" parent="Floor1" instance=ExtResource("2_we57d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
-
-[node name="Platform4" parent="Floor1" instance=ExtResource("2_we57d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Floor2" type="Node3D" parent="."]
 
-[node name="Platform1" parent="Floor2" instance=ExtResource("3_lrvjl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, 0)
-
 [node name="Platform2" parent="Floor2" instance=ExtResource("2_we57d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2.2, 0)
 
 [node name="Platform3" parent="Floor2" instance=ExtResource("2_we57d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.2, 0)
 
 [node name="Floor3" type="Node3D" parent="."]
 
 [node name="Platform5" parent="Floor3" instance=ExtResource("2_we57d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.4, 0)
 
 [node name="SpawnPoints" type="Node3D" parent="."]
 
 [node name="1" type="Node3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.7758, 10.5612, 9.53674e-07)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 10, 0)
 
 [node name="2" type="Node3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4357, 10.6685, 9.53674e-07)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10, 0)
 
 [node name="3" type="Node3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5605, 11.1543, 9.53674e-07)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 
 [node name="4" type="Node3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3079, 11.3272, 9.53674e-07)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 11.327, 0)
 
 [node name="5" type="Node3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6201, 11.2718, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 10, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 6, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1, 30)
+fov = 12.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.695085, 0, -0.718927, 0.332398, 0.886696, 0.321374, 0.63747, -0.462352, 0.616329, 0, 0, 0)
+light_indirect_energy = 3.438
+
+[node name="CharacterChanges" type="Node3D" parent="."]
+script = ExtResource("3_h657m")
+
+[node name="Jimmy" type="Node3D" parent="CharacterChanges"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2.4, 0)
+
+[node name="CharacterChanger" parent="CharacterChanges/Jimmy" instance=ExtResource("3_ppmdg")]
+metadata/character_id = 0
+
+[node name="Sprite3D" type="Sprite3D" parent="CharacterChanges/Jimmy"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.910712, -0.660134)
+texture = ExtResource("4_k1el4")
+
+[node name="annie" type="Node3D" parent="CharacterChanges"]
+
+[node name="CharacterChanger" parent="CharacterChanges/annie" instance=ExtResource("3_ppmdg")]
+metadata/character_id = 0
+
+[node name="Sprite3D" type="Sprite3D" parent="CharacterChanges/annie"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.24545, -0.660134)
+texture = ExtResource("6_a5w2p")
+
+[node name="stefan" type="Node3D" parent="CharacterChanges"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.4, 0)
+
+[node name="CharacterChanger" parent="CharacterChanges/stefan" instance=ExtResource("3_ppmdg")]
+metadata/character_id = 0
+
+[node name="Sprite3D" type="Sprite3D" parent="CharacterChanges/stefan"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.934819, -0.660134)
+texture = ExtResource("7_esd25")
+
+[node name="ulf" type="Node3D" parent="CharacterChanges"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.4, 0)
+
+[node name="CharacterChanger" parent="CharacterChanges/ulf" instance=ExtResource("3_ppmdg")]
+metadata/character_id = 0
+
+[node name="Sprite3D" type="Sprite3D" parent="CharacterChanges/ulf"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.00836, -0.660134)
+texture = ExtResource("8_r323d")
