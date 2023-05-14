@@ -53,6 +53,7 @@ func win_game(player):
 	print_debug("player ", player, " won!")
 	gamestate.state = gamestate.GAME_END
 	win_screen = win_screen_asset.instantiate()
+	win_screen.winner = gamestate.player_index_by_device[player] + 1
 	gamestate.reset()
 	player_handler.despawn_players()
 	add_child(win_screen)
@@ -94,7 +95,12 @@ func end_win_screen():
 	win_screen.queue_free()
 	gamestate.state = gamestate.MAIN_MENU
 	main_menu = main_menu_asset.instantiate()
+	map.queue_free()
+	map = menu_map_asset.instantiate()
+	add_child(map)
 	add_child(main_menu)
+	player_handler.set_map(map)
+	
 	
 func player_joined(device):
 	var player_index = player_handler.spawn_new_player(device)

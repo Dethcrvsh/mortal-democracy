@@ -105,10 +105,10 @@ func take_damage(player_dir, player_vector, scale) -> void:
 		print(player + " took damage")
 		shield_timer += SHIELD_DMG_PENALTY 
 		if character_id == 1:
-			audio_player.volume_db = 0.3
+			audio_player.volume_db = -0.15
 			audio_player.stream = female_hurt
 		else:
-			audio_player.volume_db = -0.15
+			audio_player.volume_db = 0.3
 			audio_player.stream = male_hurt
 		audio_player.play()
 		audio_player2.stream = punch_audio
@@ -317,9 +317,7 @@ func init_special():
 		
 	# annie
 	if character_id == 1:
-		audio_player.stream = swoosh_audio
-		audio_player.volume_db = -0.05
-		audio_player.play()
+		
 		annie_special()
 	
 	# stefan
@@ -450,6 +448,9 @@ func annie_special():
 		shoe_inst.set_linear_velocity(Vector3(last_move_dir*SHOE_SPEED, SHOE_SPEED/6, 0))
 		shoe_inst.global_position = global_position + Vector3(SHOE_OFFSET.x*last_move_dir, SHOE_OFFSET.y, 0)
 		annie_timer = 0.0
+		audio_player.stream = swoosh_audio
+		audio_player.volume_db = -3.0
+		audio_player.play()
 	player_state = IDLE
 
 func ulf_special_active():
