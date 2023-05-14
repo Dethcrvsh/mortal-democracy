@@ -106,8 +106,13 @@ func _physics_process(delta):
 		"down_" + player
 	)
 	
-	if (input_dir.x > 0 and last_move_dir < 0) or (input_dir.x < 0 and last_move_dir > 0):
-		model.rotate_y(PI)
+	if input_dir.x > 0 and last_move_dir < 0:
+		model.rotation = Vector3(0, -PI/2, 0)
+	elif input_dir.x < 0 and last_move_dir > 0:
+		model.rotation = Vector3(0, PI/2, 0)
+		#model.rotation = Vector3(0, 0, 0)
+	elif input_dir.x == 0:
+		model.rotation = Vector3(0, PI, 0)
 		
 	if input_dir.x != 0:
 		velocity.x = input_dir.x * SPEED
