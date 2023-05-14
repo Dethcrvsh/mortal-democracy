@@ -13,7 +13,10 @@ var map = null
 @onready var map1_asset = load("res://scenes/Map1.tscn")
 @onready var map2_asset = load("res://scenes/Map2.tscn")
 @onready var menu_map_asset = load("res://scenes/MenuMap2.tscn")
-@onready var progress_bar_asset = load("res://scenes/ProgressBar.tscn")
+@onready var progress_bar_0 = load("res://scenes/ProgressBar0.tscn")
+@onready var progress_bar_1 = load("res://scenes/ProgressBar1.tscn")
+@onready var progress_bar_2 = load("res://scenes/ProgressBar2.tscn")
+@onready var progress_bar_3 = load("res://scenes/ProgressBar3.tscn")
 
 func _ready():
 	gamestate = get_tree().get_first_node_in_group("gamestate")
@@ -65,9 +68,18 @@ func start_game():
 
 func add_progress_bar(device: String) -> void:
 	var player_index = gamestate.player_index_by_device[device]
-	var progress_bar = progress_bar_asset.instantiate()
+	var id = player_handler.get_characters()[player_index]
+	var progress_bar = null
+	
+	if id == 0:
+		progress_bar = progress_bar_0.instantiate()
+	elif id == 1:
+		progress_bar = progress_bar_1.instantiate()
+	elif id == 2:
+		progress_bar = progress_bar_2.instantiate()
+	if id == 3:
+		progress_bar = progress_bar_3.instantiate()
 	add_child(progress_bar)
-	progress_bar.set_color(gamestate.COLORS[player_index])
 	progress_bar.set_offset(gamestate.PROGRESS_BAR_POS[player_index])
 	gamestate.progress_bars[device] = progress_bar
 	

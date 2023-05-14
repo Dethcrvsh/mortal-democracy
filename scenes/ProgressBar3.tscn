@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://hawhqa32ak1e"]
+
+[ext_resource type="Script" path="res://scripts/progress_bar.gd" id="1_1se3p"]
+[ext_resource type="Texture2D" uid="uid://ba30svb6go8lu" path="res://Assets/Bars/bar background.png" id="2_05rmv"]
+[ext_resource type="Texture2D" uid="uid://cav4tgphwg8rt" path="res://Assets/Bars/m bar foreground.png" id="3_7r6wt"]
+[ext_resource type="Texture2D" uid="uid://ixf1aaellwcf" path="res://Assets/Bars/m bar inside.png" id="4_rq6y3"]
+
+[node name="ProgressBar" type="CanvasLayer"]
+script = ExtResource("1_1se3p")
+
+[node name="Bar2" type="ProgressBar" parent="."]
+visible = false
+offset_right = 400.0
+offset_bottom = 40.0
+max_value = 50.0
+show_percentage = false
+
+[node name="Bar" type="TextureProgressBar" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+max_value = 50.0
+texture_under = ExtResource("2_05rmv")
+texture_over = ExtResource("3_7r6wt")
+texture_progress = ExtResource("4_rq6y3")

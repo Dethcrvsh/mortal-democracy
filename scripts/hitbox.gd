@@ -4,7 +4,6 @@ var max_timer = 0.2
 var timer = 0.0
 var player = null
 
-
 func set_player(player_in):
 	player = player_in
 
