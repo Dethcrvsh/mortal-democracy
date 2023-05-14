@@ -138,12 +138,11 @@ func _physics_process(delta):
 		"down_" + player
 	)
 	
-	if input_dir.x > 0 and last_move_dir < 0:
+	if input_dir.x > 0 or (last_move_dir > 0 and punch_cooldown > 0.0):
 		model.rotation = Vector3(0, -PI/2, 0)
-	elif input_dir.x < 0 and last_move_dir > 0:
+	elif input_dir.x < 0 or (last_move_dir < 0 and punch_cooldown > 0.0):
 		model.rotation = Vector3(0, PI/2, 0)
-		#model.rotation = Vector3(0, 0, 0)
-	elif input_dir.x == 0:
+	elif input_dir.x == 0 and player_state != TUMBLE:
 		model.rotation = Vector3(0, PI, 0)
 		
 	if input_dir.x != 0:
