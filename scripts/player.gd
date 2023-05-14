@@ -37,11 +37,15 @@ var can_punch = true
 var can_special = true
 var character_id = 0
 
+var stefan_special = null
+var stefan_special_cooldown = 0
+
 @onready var model = $Model
 @onready var animator = $Model/AnimationPlayer
 @onready var hitbox_node = load("res://scenes/hitbox.tscn")
 @onready var shield_node = load("res://scenes/shield.tscn")
 @onready var jimmie_model = load("res://scenes/jimmie_model.tscn")
+@onready var stefan_special_asset = load("res://scenes/SpecialAttackStefan.tscn")
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -73,6 +77,10 @@ func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
+	
+	# stefan
+	if character_id == 2:
+		stefan_special_cooldown -= delta
 			
 	if player_state == TUMBLE:
 		do_tumble(delta)
@@ -110,7 +118,7 @@ func _physics_process(delta):
 		if shield != null:
 			shield.queue_free()
 	
-	if Input.is_action_just_pressed("special_" + player) and player_state == IDLE:
+	if Input.is_action_just_pressed("special_" + player) and player_state == IDLE and check_special():
 		player_state = SPECIAL
 		init_special()
 		return
@@ -218,11 +226,30 @@ func do_shield(delta):
 
 func init_special():
 	print_debug("special initialied by ", player)
-	pass
+	
+	# stefan
+	if character_id == 2: 
+		stefan_special = stefan_special_asset.instantiate()
+		add_child(stefan_special)
+		stefan_special.set_player(self)
+		return
 
 func do_special(delta):
-	print_debug("special executing")
-	pass
+	
+	# stefan
+	if character_id == 2:
+		if stefan_special == null:
+			player_state = IDLE
+			stefan_special_cooldown = 1
+		return
+
+func check_special():
+	# stefan
+	if character_id == 2:
+		if stefan_special_cooldown > 0:
+			return false
+		return true
+	return false
 		
 func change_character(new_model, new_scale = Vector3(1, 1, 1)):
 	new_model.transform = og_model_transform.scaled(new_scale)
@@ -232,3 +259,4 @@ func change_character(new_model, new_scale = Vector3(1, 1, 1)):
 	model = new_model
 	animator = new_model.get_node("AnimationPlayer")
 	add_child(model)
+
