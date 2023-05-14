@@ -92,6 +92,9 @@ func set_character(arg_character_id: int):
 	character_id = arg_character_id
 
 func take_damage(player_dir, player_vector, scale) -> void:
+	if character_id == 0 and player_state == SPECIAL:
+		return
+	
 	if not player_state == SHIELD:
 		# TODO: jimmie
 		launch_player(Vector3(
