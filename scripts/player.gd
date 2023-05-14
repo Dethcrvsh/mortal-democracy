@@ -19,6 +19,7 @@ const SHIELD = 3
 const SPECIAL = 4
 const SHOE_SPEED = 20
 const SHOE_OFFSET = Vector3(0.3, 0.8, 0)
+const ANNIE_COOLDOWN = 1.0
 
 var player_state = 0
 var player = ""
@@ -38,6 +39,7 @@ var punch_cooldown = 0.0
 var can_punch = true
 var can_special = true
 var character_id = 0
+var annie_timer = ANNIE_COOLDOWN
 
 @onready var model = $Model
 @onready var animator = $Model/AnimationPlayer
@@ -118,6 +120,9 @@ func _physics_process(delta):
 		init_special()
 		return
 
+	if annie_timer <= ANNIE_COOLDOWN:
+		annie_timer += delta
+		
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	input_dir = Input.get_vector("left_" + player, 
@@ -240,10 +245,12 @@ func change_character(char_id, new_model, new_scale = Vector3(1, 1, 1)):
 	add_child(model)
 
 func annie_special():
-	var shoe_inst = shoe_scene.instantiate()
-	get_parent().add_child(shoe_inst)
-	shoe_inst.set_player(self)
-	shoe_inst.set_spawn_dir(last_move_dir)
-	shoe_inst.set_linear_velocity(Vector3(last_move_dir*SHOE_SPEED, SHOE_SPEED/6, 0))
-	shoe_inst.global_position = global_position + Vector3(SHOE_OFFSET.x*last_move_dir, SHOE_OFFSET.y, 0)
+	if annie_timer > ANNIE_COOLDOWN:
+		var shoe_inst = shoe_scene.instantiate()
+		get_parent().add_child(shoe_inst)
+		shoe_inst.set_player(self)
+		shoe_inst.set_spawn_dir(last_move_dir)
+		shoe_inst.set_linear_velocity(Vector3(last_move_dir*SHOE_SPEED, SHOE_SPEED/6, 0))
+		shoe_inst.global_position = global_position + Vector3(SHOE_OFFSET.x*last_move_dir, SHOE_OFFSET.y, 0)
+		annie_timer = 0.0
 	player_state = IDLE

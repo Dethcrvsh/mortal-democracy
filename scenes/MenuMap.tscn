@@ -49,6 +49,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 10, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1, 30)
+current = true
 fov = 12.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
