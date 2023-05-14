@@ -7,6 +7,7 @@ extends Area3D
 
 var id_to_model
 var character_id = 0
+var character_scale = Vector3(1, 1, 1)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,7 +18,10 @@ func _ready():
 func set_character_id(id):
 	character_id = id
 
+func set_character_scale(new_scale):
+	character_scale = new_scale
+
 func _on_body_entered(body):
 	if body.has_method("change_character"):
 		var model_instance = id_to_model[character_id].instantiate()
-		body.change_character(model_instance)
+		body.change_character(model_instance, character_scale)
