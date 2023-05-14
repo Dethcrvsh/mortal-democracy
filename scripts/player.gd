@@ -55,6 +55,7 @@ var stefan_special_cooldown = 0
 var ulf_special = null
 var ulf_special_cooldown = 0
 var ulf_special_direction = null
+var collision_shape: CollisionShape3D = null
 
 @onready var model = $Model
 @onready var animator = $Model/AnimationPlayer
@@ -92,6 +93,7 @@ func take_damage(player_dir, player_vector, scale) -> void:
 func _ready():
 	og_rotation = rotation
 	og_model_transform = model.transform
+	collision_shape = get_node("CollisionShape3D")
 	
 
 func _physics_process(delta):
@@ -282,6 +284,7 @@ func init_special():
 		stefan_special = stefan_special_asset.instantiate()
 		add_child(stefan_special)
 		stefan_special.set_player(self)
+		stefan_special.max_timer = 0.75
 		return
 	
 	if character_id == 3:
@@ -375,6 +378,13 @@ func change_character(char_id, new_model, new_scale = Vector3(1, 1, 1)):
 	animator = new_model.get_node("AnimationPlayer")
 	add_child(model)
 	player_state = IDLE
+	if character_id == 3:
+		collision_shape.shape.height = 1
+		collision_shape.position.y = -0.3
+	else:
+		collision_shape.shape.height = 1.8
+		collision_shape.position.y = 0
+	
 
 func annie_special():
 	if annie_timer > ANNIE_COOLDOWN:
