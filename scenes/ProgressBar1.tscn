@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/progress_bar.gd" id="1_61qt7"]
 [ext_resource type="Texture2D" uid="uid://dxrgtx46tx52p" path="res://Assets/Bars/bar background.png" id="2_jn144"]
-[ext_resource type="Texture2D" uid="uid://vtwgokqlmhx0" path="res://Assets/Bars/sd bar foreground.png" id="3_f0l6h"]
-[ext_resource type="Texture2D" uid="uid://buwj1j6ijlll2" path="res://Assets/Bars/sd bar inside.png" id="4_6skxv"]
+[ext_resource type="Texture2D" uid="uid://b12ljvcvgefa" path="res://Assets/Bars/c bar foreground.png" id="3_pjolf"]
+[ext_resource type="Texture2D" uid="uid://dpy5x1k5g5epn" path="res://Assets/Bars/c bar inside.png" id="4_nx80n"]
 
 [node name="ProgressBar" type="CanvasLayer"]
 script = ExtResource("1_61qt7")
@@ -18,6 +18,7 @@ show_percentage = false
 [node name="Bar" type="TextureProgressBar" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
+max_value = 50.0
 texture_under = ExtResource("2_jn144")
-texture_over = ExtResource("3_f0l6h")
-texture_progress = ExtResource("4_6skxv")
+texture_over = ExtResource("3_pjolf")
+texture_progress = ExtResource("4_nx80n")
