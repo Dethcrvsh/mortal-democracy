@@ -17,6 +17,8 @@ var map = null
 @onready var progress_bar_1 = load("res://scenes/ProgressBar1.tscn")
 @onready var progress_bar_2 = load("res://scenes/ProgressBar2.tscn")
 @onready var progress_bar_3 = load("res://scenes/ProgressBar3.tscn")
+@onready var audio_player = AudioStreamPlayer.new()
+@onready var music = load("res://Audio/music.mp3")
 
 func _ready():
 	gamestate = get_tree().get_first_node_in_group("gamestate")
@@ -29,9 +31,13 @@ func _ready():
 	
 	gamestate.state = gamestate.MAIN_MENU
 	player_handler.set_map(map)
-	
+	add_child(audio_player)
+	audio_player.stream = music
+	audio_player.play()
 
 func _process(delta):
+	if not audio_player.playing:
+		audio_player.play()
 	if gamestate.state == gamestate.GAME_PLAYING:
 		handle_votes()
 

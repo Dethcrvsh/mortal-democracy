@@ -1,13 +1,13 @@
 [gd_scene load_steps=13 format=3 uid="uid://k2us5itvhg3o"]
 
-[ext_resource type="Texture2D" uid="uid://hnj04wnj2xgs" path="res://Assets/Models/Annie_Lööf_annie.png" id="1_aodce"]
+[ext_resource type="Texture2D" uid="uid://d1ih34xa4a56v" path="res://Assets/Models/Annie_Lööf_annie.png" id="1_aodce"]
 [ext_resource type="Animation" uid="uid://k65i5cvsxo3s" path="res://Assets/Models/ArmatureAction.res" id="2_1v07y"]
-[ext_resource type="Animation" uid="uid://de6nd1osovm52" path="res://Assets/Models/Idel.res" id="3_l1pap"]
-[ext_resource type="Animation" uid="uid://bmr4xgufmw5op" path="res://Assets/Models/animation.res" id="4_gvohi"]
+[ext_resource type="Animation" uid="uid://dq2lhyu64nrmd" path="res://Assets/Models/Idel.res" id="3_l1pap"]
+[ext_resource type="Animation" uid="uid://bul22pvg4u5jd" path="res://Assets/Models/animation.res" id="4_gvohi"]
 [ext_resource type="Animation" uid="uid://dxmq2uikcd34p" path="res://Assets/Models/fall.res" id="5_1ptbk"]
 [ext_resource type="Animation" uid="uid://cj5b52ysxqyur" path="res://Assets/Models/jump.res" id="6_faup3"]
 [ext_resource type="Animation" uid="uid://c6seypm4audvi" path="res://Assets/Models/tumble.res" id="7_rkwkg"]
-[ext_resource type="Animation" uid="uid://cqo8w61xlvwx4" path="res://Assets/Models/talk.res" id="8_iqkcw"]
+[ext_resource type="Animation" path="res://Assets/Models/talk.res" id="8_iqkcw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kx3gw"]
 resource_name = "Material"

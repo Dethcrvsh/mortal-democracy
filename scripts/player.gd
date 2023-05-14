@@ -57,6 +57,14 @@ var ulf_special_cooldown = 0
 var ulf_special_direction = null
 var collision_shape: CollisionShape3D = null
 
+@onready var audio_player = AudioStreamPlayer.new()
+@onready var audio_player2 = AudioStreamPlayer.new()
+@onready var test_audio = load("res://Audio/test.ogg")
+@onready var swoosh_audio = load("res://Audio/slash.ogg")
+@onready var punch_audio = load("res://Audio/punch.mp3")
+@onready var jimmy_special_audio = load("res://Audio/jimmy_special.mp3")
+@onready var male_hurt = load("res://Audio/male_hurt.mp3")
+@onready var female_hurt = load("res://Audio/female_hurt.mp3")
 @onready var model = $Model
 @onready var animator = $Model/AnimationPlayer
 @onready var hitbox_node = load("res://scenes/hitbox.tscn")
@@ -89,12 +97,23 @@ func take_damage(player_dir, player_vector, scale) -> void:
 		))
 		print(player + " took damage")
 		shield_timer += SHIELD_DMG_PENALTY 
+		if character_id == 1:
+			audio_player.volume_db = 0.0
+			audio_player.stream = female_hurt
+		else:
+			audio_player.volume_db = -0.15
+			audio_player.stream = male_hurt
+		audio_player.play()
+		audio_player2.stream = punch_audio
+		audio_player2.play()
 
 func _ready():
 	og_rotation = rotation
 	og_model_transform = model.transform
 	collision_shape = get_node("CollisionShape3D")
-	
+	add_child(audio_player)
+	add_child(audio_player2)
+	audio_player.stream = test_audio
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -273,10 +292,14 @@ func init_special():
 		else:
 			model.rotation = Vector3(0, PI/2, 0)
 		cooldown = JIMMIE_SPECIAL_DELAY
+		
 		velocity.x = 0
 		
 	# annie
 	if character_id == 1:
+		audio_player.stream = swoosh_audio
+		audio_player.volume_db = -0.05
+		audio_player.play()
 		annie_special()
 	
 	# stefan
@@ -285,6 +308,9 @@ func init_special():
 		add_child(stefan_special)
 		stefan_special.set_player(self)
 		stefan_special.max_timer = 0.75
+		audio_player.volume_db = -0.25
+		audio_player.stream = test_audio
+		audio_player.play()
 		return
 	
 	if character_id == 3:
@@ -297,6 +323,9 @@ func init_special():
 		if last_move_dir > 0:
 			ulf_special.rotation = Vector3(0, PI, 0)
 		self.rotation.z = - PI/3 * last_move_dir
+		audio_player.stream = test_audio
+		audio_player.volume_db = -0.25
+		audio_player.play()
 		return
 
 func do_special(delta):
@@ -358,6 +387,9 @@ func do_jimmie_special(delta):
 		elif cooldown <= JIMMIE_SPECIAL_RAMP_UP and not is_jimmie_special_spawned:
 			#Spawn the hitbox
 			var hitbox = jimmie_hitbox_node.instantiate()
+			audio_player.volume_db = 0.0
+			audio_player.stream = jimmy_special_audio
+			audio_player.play()
 			hitbox.set_player(self)
 			hitbox.position += JIMMIE_HITBOX_OFFSET * last_move_dir
 			hitbox.max_timer = 0.2
@@ -378,13 +410,13 @@ func change_character(char_id, new_model, new_scale = Vector3(1, 1, 1)):
 	animator = new_model.get_node("AnimationPlayer")
 	add_child(model)
 	player_state = IDLE
+	
 	if character_id == 3:
 		collision_shape.shape.height = 1
 		collision_shape.position.y = -0.3
 	else:
 		collision_shape.shape.height = 1.8
 		collision_shape.position.y = 0
-	
 
 func annie_special():
 	if annie_timer > ANNIE_COOLDOWN:
