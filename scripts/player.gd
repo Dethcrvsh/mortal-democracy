@@ -206,7 +206,7 @@ func do_shield(delta):
 func change_character(new_model, new_scale = Vector3(1, 1, 1)):
 	new_model.transform = og_model_transform.scaled(new_scale)
 	new_model.rotation = model.rotation
-	new_model.position.y = -0.4 + 0.5*(new_scale.y-1)
+	new_model.position.y = -0.4 + 0.7*(new_scale.y-1)
 	model.queue_free()
 	model = new_model
 	animator = new_model.get_node("AnimationPlayer")
