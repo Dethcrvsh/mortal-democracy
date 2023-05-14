@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bsmne7ojs55ed"
-path="res://.godot/imported/talk.glb-15e33d9c7cb0a348ce71246934d9a44e.scn"
+uid="uid://d4gvdjb437rb5"
+path="res://.godot/imported/Järnrör.glb-e6e6a8277c9a877f9be0c8813c4e85a3.scn"
 
 [deps]
 
-source_file="res://Assets/Models/talk.glb"
-dest_files=["res://.godot/imported/talk.glb-15e33d9c7cb0a348ce71246934d9a44e.scn"]
+source_file="res://Assets/Models/Järnrör.glb"
+dest_files=["res://.godot/imported/Järnrör.glb-e6e6a8277c9a877f9be0c8813c4e85a3.scn"]
 
 [params]
 
@@ -33,7 +33,7 @@ _subresources={
 "ArmatureAction": {
 "save_to_file/enabled": true,
 "save_to_file/keep_custom_tracks": "",
-"save_to_file/path": "res://Assets/Models/talk.res",
+"save_to_file/path": "res://Assets/Models/järnrör.res",
 "settings/loop_mode": 0,
 "slice_1/end_frame": 0,
 "slice_1/loop_mode": 0,

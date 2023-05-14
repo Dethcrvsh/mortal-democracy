@@ -13,9 +13,9 @@ const SHIELD_DMG_PENALTY = -0.5
 const TUMBLE_ROTATION = PI*2
 
 const JIMMIE_SPECIAL_DELAY = 1.0
-const JIMMIE_SPECIAL_RAMP_UP = 0.5
+const JIMMIE_SPECIAL_RAMP_UP = 0.3
 const JIMMIE_HITBOX_OFFSET = Vector3(2.0, 0, 0)
-const JIMMIE_SPECIAL_COOLDOWN_MAX = 5.0
+const JIMMIE_SPECIAL_COOLDOWN_MAX = 2.0
 
 var jimmie_special_cooldown = 0.0
 var is_jimmie_special_spawned = false
@@ -48,6 +48,7 @@ var can_punch = true
 var can_special = true
 var character_id = 0
 var annie_timer = ANNIE_COOLDOWN
+var talking = false
 
 var stefan_special = null
 var stefan_special_cooldown = 0
@@ -129,7 +130,7 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY
 	
 	elif Input.is_action_just_pressed("attack_" + player) and player_state == IDLE and can_punch:
-		animator.play("ArmatureAction 2")
+		animator.play("Punch")
 		animator.speed_scale = 1.0
 		do_punch()
 	
@@ -164,7 +165,7 @@ func _physics_process(delta):
 		model.rotation = Vector3(0, -PI/2, 0)
 	elif input_dir.x < 0 or (last_move_dir < 0 and punch_cooldown > 0.0):
 		model.rotation = Vector3(0, PI/2, 0)
-	elif input_dir.x == 0 and player_state != TUMBLE:
+	elif input_dir.x == 0 and player_state == IDLE:
 		model.rotation = Vector3(0, PI, 0)
 		
 	if input_dir.x != 0:
@@ -176,10 +177,17 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
-	# Play run animation if where moving
+	if character_id == 0 and player_state == SPECIAL:
+		move_and_slide()
+		return
 	
+	# Play run animation if where moving
 	if punch_cooldown <= 0:
-		if not is_on_floor():
+		if talking:
+			animator.play("talk")
+			animator.speed_scale = 1.0
+			
+		elif not is_on_floor():
 			if velocity.y > 0:
 				animator.play("jump")
 			else:
@@ -187,8 +195,9 @@ func _physics_process(delta):
 		elif velocity.x == 0:
 			if animator.current_animation == "Run":
 				run_animation_timestamp = animator.current_animation_position
-				
-			animator.play("Idel")
+			
+			if player_state != SPECIAL:
+				animator.play("Idel")
 		else:
 			if animator.current_animation != "Run":
 				animator.play("Run")
@@ -255,6 +264,12 @@ func init_special():
 	
 	#jimmie
 	if character_id == 0:
+		animator.play("järnrör")
+		animator.speed_scale = 2
+		if last_move_dir > 0:
+			model.rotation = Vector3(0, -PI/2, 0)
+		else:
+			model.rotation = Vector3(0, PI/2, 0)
 		cooldown = JIMMIE_SPECIAL_DELAY
 		velocity.x = 0
 		
@@ -330,6 +345,7 @@ func check_special():
 
 func do_jimmie_special(delta):
 	if jimmie_special_cooldown <= 0.0:
+		velocity.x = 0
 		if cooldown <= 0.0:
 			cooldown = 0.0
 			player_state = IDLE
@@ -341,7 +357,7 @@ func do_jimmie_special(delta):
 			var hitbox = jimmie_hitbox_node.instantiate()
 			hitbox.set_player(self)
 			hitbox.position += JIMMIE_HITBOX_OFFSET * last_move_dir
-			hitbox.max_timer = JIMMIE_SPECIAL_DELAY - JIMMIE_SPECIAL_RAMP_UP
+			hitbox.max_timer = 0.2
 			
 			add_child(hitbox)
 			is_jimmie_special_spawned = true

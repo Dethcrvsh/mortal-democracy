@@ -3,15 +3,16 @@
 [ext_resource type="Script" path="res://scripts/hitbox.gd" id="1_gobfa"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_oxwsi"]
-size = Vector3(4, 1.5, 0)
+size = Vector3(3, 1.5, 0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nogft"]
-size = Vector3(4, 1.5, 0)
+size = Vector3(3, 1.5, 0)
 
 [node name="Hitbox" type="Area3D"]
 script = ExtResource("1_gobfa")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("BoxMesh_oxwsi")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
