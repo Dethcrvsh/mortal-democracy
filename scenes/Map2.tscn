@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://da4bmar1xqjac" path="res://scenes/Platform1.tscn" id="1_hv637"]
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_lmh6s"]
 [ext_resource type="PackedScene" uid="uid://gjj2shypyqs" path="res://scenes/Goal.tscn" id="2_hargo"]
-[ext_resource type="PackedScene" uid="uid://dgtfi7q7dfxf0" path="res://Assets/Models/level_bakgrund.glb" id="4_8key6"]
+[ext_resource type="PackedScene" uid="uid://k54dl5v16pnp" path="res://Assets/Models/level_bakgrund.glb" id="4_8key6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1gjyb"]
 size = Vector3(20, 1, 1)
