@@ -102,7 +102,7 @@ func take_damage(player_dir, player_vector, scale) -> void:
 		print(player + " took damage")
 		shield_timer += SHIELD_DMG_PENALTY 
 		if character_id == 1:
-			audio_player.volume_db = 0.0
+			audio_player.volume_db = 0.3
 			audio_player.stream = female_hurt
 		else:
 			audio_player.volume_db = -0.15

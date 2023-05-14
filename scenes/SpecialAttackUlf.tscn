@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/hitbox.gd" id="1_ytg1k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h3j07"]
-size = Vector3(2.5, 1.5, 0.5)
+size = Vector3(1.3, 0.5, 0.5)
 
 [node name="SpecialAttackUlf" type="Area3D"]
 script = ExtResource("1_ytg1k")
