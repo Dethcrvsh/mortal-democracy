@@ -181,9 +181,6 @@ func _physics_process(delta):
 				animator.play("Run")
 				animator.advance(run_animation_timestamp)
 			animator.speed_scale = abs(input_dir.x)*4
-
-	if Input.is_action_just_pressed("test_launch_p1"):
-		change_character(jimmie_model.instantiate(), Vector3(3, 3, 3))
 	
 	move_and_slide()
 
