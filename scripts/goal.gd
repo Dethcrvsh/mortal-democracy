@@ -2,7 +2,7 @@ extends Node3D
 
 var gamestate = null
 var players_in_zone = []
-const vote_rate = 1.0
+const vote_rate = 2.0
 
 
 # Called when the node enters the scene tree for the first time.
