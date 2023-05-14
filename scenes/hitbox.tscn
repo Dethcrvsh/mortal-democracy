@@ -12,6 +12,7 @@ size = Vector3(1.5, 1, 0)
 script = ExtResource("1_wkh1d")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("BoxMesh_oxwsi")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
