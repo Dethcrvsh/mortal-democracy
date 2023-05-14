@@ -9,10 +9,10 @@ var main_menu = null
 var map = null
 
 @onready var win_screen_asset = load("res://scenes/WinScreen.tscn")
-@onready var main_menu_asset = load("res://scenes/MainMenu.tscn")
+@onready var main_menu_asset = load("res://scenes/MainMenu2.tscn")
 @onready var map1_asset = load("res://scenes/Map1.tscn")
 @onready var map2_asset = load("res://scenes/Map2.tscn")
-@onready var menu_map_asset = load("res://scenes/MenuMap.tscn")
+@onready var menu_map_asset = load("res://scenes/MenuMap2.tscn")
 @onready var progress_bar_asset = load("res://scenes/ProgressBar.tscn")
 
 func _ready():
