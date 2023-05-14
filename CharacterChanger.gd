@@ -25,3 +25,4 @@ func _on_body_entered(body):
 	if body.has_method("change_character"):
 		var model_instance = id_to_model[character_id].instantiate()
 		body.change_character(model_instance, character_scale)
+		body.set_character(character_id)
