@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bkm8tx8kwmlq1"]
 
 [ext_resource type="Script" path="res://scripts/progress_bar.gd" id="1_hnmbd"]
-[ext_resource type="Texture2D" uid="uid://ba30svb6go8lu" path="res://Assets/Bars/bar background.png" id="2_2e8u6"]
+[ext_resource type="Texture2D" uid="uid://cmjsfju1hi27d" path="res://Assets/Bars/bar background.png" id="2_2e8u6"]
 [ext_resource type="Texture2D" uid="uid://c26ohh1yu70so" path="res://Assets/Bars/s bar foreground.png" id="3_2u4ug"]
 [ext_resource type="Texture2D" uid="uid://1kbr6sylhrru" path="res://Assets/Bars/s bar inside.png" id="4_aep04"]
 

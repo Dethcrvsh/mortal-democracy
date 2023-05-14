@@ -8,4 +8,5 @@ material = SubResource("StandardMaterial3D_l8qvs")
 [node name="Shield" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 mesh = SubResource("TorusMesh_5bo6a")
