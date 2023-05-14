@@ -11,6 +11,7 @@ const PUNCH_DELAY = 0.5
 const SHIELD_MAX = 1.0
 const SHIELD_DMG_PENALTY = -0.5
 const TUMBLE_ROTATION = PI*2
+const SHIELD_COOLDOWN = 2.0
 
 const JIMMIE_SPECIAL_DELAY = 1.0
 const JIMMIE_SPECIAL_RAMP_UP = 0.3
@@ -49,12 +50,16 @@ var can_special = true
 var character_id = 0
 var annie_timer = ANNIE_COOLDOWN
 var talking = false
+var shield_cooldown = 0.0
+
+
 
 var stefan_special = null
 var stefan_special_cooldown = 0
 var ulf_special = null
 var ulf_special_cooldown = 0
 var ulf_special_direction = null
+var collision_shape: CollisionShape3D = null
 
 @onready var model = $Model
 @onready var animator = $Model/AnimationPlayer
@@ -92,6 +97,7 @@ func take_damage(player_dir, player_vector, scale) -> void:
 func _ready():
 	og_rotation = rotation
 	og_model_transform = model.transform
+	collision_shape = get_node("CollisionShape3D")
 	
 
 func _physics_process(delta):
@@ -135,9 +141,11 @@ func _physics_process(delta):
 		do_punch()
 	
 	elif Input.is_action_just_pressed("shield_" + player) and (player_state == IDLE or player_state == SHIELD):
-		player_state = SHIELD
-		shield = shield_node.instantiate()
-		add_child(shield)
+		if shield_cooldown <= 0.0:
+			player_state = SHIELD
+			shield = shield_node.instantiate()
+			shield_cooldown = SHIELD_COOLDOWN
+			add_child(shield)
 	
 	elif Input.is_action_just_released("shield_" + player):
 		player_state = IDLE
@@ -168,7 +176,7 @@ func _physics_process(delta):
 	elif input_dir.x == 0 and player_state == IDLE:
 		model.rotation = Vector3(0, PI, 0)
 		
-	if input_dir.x != 0:
+	if input_dir.x != 0 and player_state != SHIELD:
 		velocity.x = input_dir.x * SPEED
 		if input_dir.x < 0:
 			last_move_dir = -1
@@ -250,10 +258,15 @@ func do_punch():
 	can_punch = false
 
 func do_shield(delta):
+	if shield_cooldown >= 0.0:
+		shield_cooldown -= delta
+		return
+	
 	if player_state == SHIELD:
 		if shield_timer < 0:
 			player_state = IDLE
 			shield.queue_free()
+			shield_cooldown = SHIELD_COOLDOWN
 		else:
 			shield_timer -= delta
 	elif shield_timer < SHIELD_MAX:
@@ -282,6 +295,7 @@ func init_special():
 		stefan_special = stefan_special_asset.instantiate()
 		add_child(stefan_special)
 		stefan_special.set_player(self)
+		stefan_special.max_timer = 0.75
 		return
 	
 	if character_id == 3:
@@ -375,6 +389,13 @@ func change_character(char_id, new_model, new_scale = Vector3(1, 1, 1)):
 	animator = new_model.get_node("AnimationPlayer")
 	add_child(model)
 	player_state = IDLE
+	if character_id == 3:
+		collision_shape.shape.height = 1
+		collision_shape.position.y = -0.3
+	else:
+		collision_shape.shape.height = 1.8
+		collision_shape.position.y = 0
+	
 
 func annie_special():
 	if annie_timer > ANNIE_COOLDOWN:

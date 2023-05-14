@@ -13,10 +13,10 @@ const COLORS = [
 ]
 
 const PROGRESS_BAR_POS = [
-	Vector2(400, 1000),
-	Vector2(1200, 1000),
-	Vector2(400, 1100),
-	Vector2(1200, 1100)
+	Vector2(100, 1000),
+	Vector2(600, 1000),
+	Vector2(1100, 1000),
+	Vector2(1600, 1000),
 ]
 
 var progress_bars = {}

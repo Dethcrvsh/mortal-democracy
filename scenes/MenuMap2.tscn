@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bpjk7vqu43lpi"]
+[gd_scene load_steps=10 format=3 uid="uid://bpjk7vqu43lpi"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_owny6"]
 [ext_resource type="PackedScene" uid="uid://bkoeeqyhqgy0l" path="res://scenes/Platform2.tscn" id="2_w6jox"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cbiuhuaxgrcfe" path="res://Assets/headshots/annie.png" id="6_5ivvr"]
 [ext_resource type="Texture2D" uid="uid://c1j2avryg6av2" path="res://Assets/headshots/steffe.png" id="7_tkf02"]
 [ext_resource type="Texture2D" uid="uid://cctmiuqynkexv" path="res://Assets/headshots/uffe.png" id="8_u7eb4"]
+[ext_resource type="Texture2D" uid="uid://ei8fgf2hux3j" path="res://Assets/mortal democracy logo.png" id="9_oodf1"]
 
 [node name="Map" type="Node3D"]
 script = ExtResource("1_owny6")
@@ -107,3 +108,7 @@ transform = Transform3D(-4.37114e-06, -1, 0, 100, -4.37114e-08, 0, 0, 0, 1, 5.60
 
 [node name="wall2" parent="." instance=ExtResource("2_w6jox")]
 transform = Transform3D(-4.37114e-07, -1, 0, 10, -4.37114e-08, 0, 0, 0, 1, -5.64978, 0, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.171045, 2.67974, 0)
+texture = ExtResource("9_oodf1")
