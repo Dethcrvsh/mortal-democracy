@@ -16,6 +16,7 @@ const IDLE = 0
 const PUNCH = 1
 const TUMBLE = 2
 const SHIELD = 3
+const SPECIAL = 4
 
 var player_state = 0
 var player = ""
@@ -32,6 +33,8 @@ var input_dir
 var shield = null
 var punch_cooldown = 0.0
 var can_punch = true
+var can_special = true
+var character = null
 
 @onready var model = $model
 @onready var hitbox_node = load("res://scenes/hitbox.tscn")
@@ -41,9 +44,10 @@ var can_punch = true
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-func set_player(arg_device: String) -> void:
+func set_player(arg_device: String, arg_character: int) -> void:
 	player = "p" + arg_device
 	device = arg_device
+	character = arg_character
 	print_debug("new player: ", player)
 
 func take_damage(player_dir, player_vector) -> void:
@@ -67,7 +71,10 @@ func _physics_process(delta):
 			
 	if player_state == TUMBLE:
 		do_tumble(delta)
-		
+		return
+	
+	if player_state == SPECIAL:
+		do_special(delta)
 		return
 
 	do_shield(delta)
@@ -97,6 +104,11 @@ func _physics_process(delta):
 		player_state = IDLE
 		if shield != null:
 			shield.queue_free()
+	
+	if Input.is_action_just_pressed("special_" + player) and player_state == IDLE:
+		player_state = SPECIAL
+		init_special()
+		return
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -194,3 +206,11 @@ func do_shield(delta):
 			shield_timer -= delta
 	elif shield_timer < SHIELD_MAX:
 		shield_timer += delta
+
+func init_special():
+	print_debug("special initialied by ", player)
+	pass
+
+func do_special(delta):
+	print_debug("special executing")
+	pass
