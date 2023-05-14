@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cc7y1p16lk1ii"]
+
+[ext_resource type="Texture2D" uid="uid://bsmne7ojs55ed" path="res://Assets/Models/Stefan_Löfven_steffe.png" id="1_rc1ft"]
+
+[resource]
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_rc1ft")
+roughness = 0.76
