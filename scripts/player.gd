@@ -51,6 +51,7 @@ var character_id = 0
 @onready var jimmie_hitbox_node = load("res://scenes/jimmie_hitbox.tscn")
 @onready var shield_node = load("res://scenes/shield.tscn")
 @onready var jimmie_model = load("res://scenes/jimmie_model.tscn")
+@onready var iron_bar_model = load("res://scenes/IronBar.tscn")
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -125,7 +126,7 @@ func _physics_process(delta):
 			shield.queue_free()
 	
 	if Input.is_action_just_pressed("special_" + player) and player_state == IDLE:
-		if (jimmie_special_cooldown <= 0.0):
+		if (character_id == 0 and jimmie_special_cooldown <= 0.0):
 			player_state = SPECIAL
 			init_special()
 		return
@@ -233,12 +234,16 @@ func do_shield(delta):
 
 func init_special():
 	print_debug("special initialied by ", player)
-	cooldown = JIMMIE_SPECIAL_DELAY
-	pass
+	if character_id == 0:
+		cooldown = JIMMIE_SPECIAL_DELAY
+		velocity.x = 0
 
 func do_special(delta):
+	if character_id == 0:
+		do_jimmie_special(delta)		
+
+func do_jimmie_special(delta):
 	if jimmie_special_cooldown <= 0.0:
-		velocity.x = 0
 		if cooldown <= 0.0:
 			cooldown = 0.0
 			player_state = IDLE
@@ -246,11 +251,12 @@ func do_special(delta):
 			jimmie_special_cooldown = JIMMIE_SPECIAL_COOLDOWN_MAX
 			return
 		elif cooldown <= JIMMIE_SPECIAL_RAMP_UP and not is_jimmie_special_spawned:
-			print("ramp")
+			#Spawn the hitbox
 			var hitbox = jimmie_hitbox_node.instantiate()
 			hitbox.set_player(self)
 			hitbox.position += JIMMIE_HITBOX_OFFSET * last_move_dir
 			hitbox.max_timer = JIMMIE_SPECIAL_DELAY - JIMMIE_SPECIAL_RAMP_UP
+			
 			add_child(hitbox)
 			is_jimmie_special_spawned = true
 	
