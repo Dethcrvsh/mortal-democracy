@@ -1,6 +1,6 @@
 extends Area3D
 
-@onready var jimmy_model = load("res://scenes/jimmie_model.tscn")
+@onready var jimmy_model = load("res://scenes/jimmie_with_jarnror.tscn")
 @onready var annie_model = load("res://scenes/annie_model.tscn")
 @onready var stefan_model = load("res://scenes/stefan_model.tscn")
 @onready var ulf_model = load("res://scenes/ulf_model.tscn")

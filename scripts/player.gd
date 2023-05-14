@@ -124,7 +124,7 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY
 	
 	elif Input.is_action_just_pressed("attack_" + player) and player_state == IDLE and can_punch:
-		animator.play("ArmatureAction 2")
+		animator.play("Punch")
 		animator.speed_scale = 1.0
 		do_punch()
 	
