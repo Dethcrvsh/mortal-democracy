@@ -51,6 +51,9 @@ var annie_timer = ANNIE_COOLDOWN
 
 var stefan_special = null
 var stefan_special_cooldown = 0
+var ulf_special = null
+var ulf_special_cooldown = 0
+var ulf_special_direction = null
 
 @onready var model = $Model
 @onready var animator = $Model/AnimationPlayer
@@ -59,6 +62,7 @@ var stefan_special_cooldown = 0
 @onready var shield_node = load("res://scenes/shield.tscn")
 @onready var jimmie_model = load("res://scenes/jimmie_model.tscn")
 @onready var stefan_special_asset = load("res://scenes/SpecialAttackStefan.tscn")
+@onready var ulf_special_asset = load("res://scenes/SpecialAttackUlf.tscn")
 @onready var iron_bar_model = load("res://scenes/IronBar.tscn")
 @onready var shoe_scene = load("res://scenes/shoe.tscn")
 
@@ -91,12 +95,13 @@ func _ready():
 
 func _physics_process(delta):
 	# Add the gravity.
-	if not is_on_floor():
+	if not is_on_floor() and not ulf_special_active():
 		velocity.y -= gravity * delta
 	
-	# stefan
 	if character_id == 2:
 		stefan_special_cooldown -= delta
+	if character_id == 3:
+		ulf_special_cooldown -= delta
 			
 	if player_state == TUMBLE:
 		do_tumble(delta)
@@ -142,6 +147,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("special_" + player) and player_state == IDLE and check_special():
 		player_state = SPECIAL
 		init_special()
+		return
 
 	if annie_timer <= ANNIE_COOLDOWN:
 		annie_timer += delta
@@ -262,6 +268,18 @@ func init_special():
 		add_child(stefan_special)
 		stefan_special.set_player(self)
 		return
+	
+	if character_id == 3:
+		ulf_special = ulf_special_asset.instantiate()
+		add_child(ulf_special)
+		ulf_special.set_player(self)
+		ulf_special.max_timer = 0.25
+		velocity.x = last_move_dir * 20
+		velocity.y = 0
+		if last_move_dir > 0:
+			ulf_special.rotation = Vector3(0, PI, 0)
+		self.rotation.z = - PI/3 * last_move_dir
+		return
 
 func do_special(delta):
 	
@@ -281,12 +299,27 @@ func do_special(delta):
 			player_state = IDLE
 			stefan_special_cooldown = 1
 		return
+	
+	# ulf
+	if character_id == 3:
+		if ulf_special == null:
+			player_state = IDLE
+			ulf_special_cooldown = 1
+			velocity.x = 0
+			self.rotation.z = 0
+		return
 
 func check_special():
 	
 	if (character_id == 0 and jimmie_special_cooldown <= 0.0) or (character_id == 1):
 		return true
 		
+	# ulf
+	if character_id == 3:
+		if ulf_special_cooldown > 0:
+			return false
+		return true
+	
 	# stefan
 	if character_id == 2:
 		if stefan_special_cooldown > 0:
@@ -319,6 +352,7 @@ func change_character(char_id, new_model, new_scale = Vector3(1, 1, 1)):
 	character_id = char_id
 	new_model.transform = og_model_transform.scaled(new_scale)
 	new_model.rotation = model.rotation
+	self.rotation.z = 0
 	new_model.position.y = -0.4 + 0.7*(new_scale.y-1)
 	model.queue_free()
 	model = new_model
@@ -336,3 +370,8 @@ func annie_special():
 		shoe_inst.global_position = global_position + Vector3(SHOE_OFFSET.x*last_move_dir, SHOE_OFFSET.y, 0)
 		annie_timer = 0.0
 	player_state = IDLE
+
+func ulf_special_active():
+	if character_id == 3:
+		return player_state == SPECIAL
+	return false
