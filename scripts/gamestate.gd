@@ -5,7 +5,24 @@ const MAIN_MENU = 2
 const GAME_PLAYING = 3
 const GAME_END = 4
 
+const COLORS = [
+	Color(255, 221, 0),
+	Color(204, 33, 55),
+	Color(151, 219, 247),
+	Color(0, 135, 61)
+]
+
+const PROGRESS_BAR_POS = [
+	Vector2(400, 1000),
+	Vector2(1200, 1000),
+	Vector2(400, 1100),
+	Vector2(1200, 1100)
+]
+
+var progress_bars = {}
+
 var votes = {}
+
 var player_index_by_device = {}
 var text = null
 var state = INIT
