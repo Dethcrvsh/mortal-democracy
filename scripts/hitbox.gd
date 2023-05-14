@@ -1,9 +1,8 @@
 extends Area3D
 
-const MAX_TIMER = 0.2
-
 var timer = 0.0
 var player = null
+var max_timer = 0.2
 
 func set_player(player_in):
 	player = player_in
@@ -18,6 +17,6 @@ func _on_body_entered(body):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if timer >= MAX_TIMER:
+	if timer >= max_timer:
 		queue_free()
 	timer += delta

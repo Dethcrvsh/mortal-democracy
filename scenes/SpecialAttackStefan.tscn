@@ -1,0 +1,124 @@
+[gd_scene load_steps=11 format=3 uid="uid://d21wbjculwfvh"]
+
+[ext_resource type="Script" path="res://scripts/hitbox.gd" id="1_ktros"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1u4an"]
+size = Vector3(1, 1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rmfeq"]
+albedo_color = Color(1, 0, 0, 1)
+metallic = 0.4
+roughness = 0.24
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hg8xv"]
+material = SubResource("StandardMaterial3D_rmfeq")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_10dft"]
+albedo_color = Color(0, 0, 0, 1)
+metallic = 1.0
+roughness = 0.37
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_0ntsb"]
+material = SubResource("StandardMaterial3D_10dft")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p8lup"]
+albedo_color = Color(0, 0, 0, 1)
+metallic = 0.31
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vhr3x"]
+material = SubResource("StandardMaterial3D_p8lup")
+top_radius = 0.1
+bottom_radius = 0.3
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f75ye"]
+albedo_color = Color(1, 0.619608, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.439216, 0, 1)
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_f1u0s"]
+material = SubResource("StandardMaterial3D_f75ye")
+size = Vector2(0.3, 0.3)
+
+[node name="SpecialAttackStefan" type="Area3D"]
+script = ExtResource("1_ktros")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, -1.19029, 0.440192, 0)
+shape = SubResource("BoxShape3D_1u4an")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 1.04754, 0.497754, 0)
+shape = SubResource("BoxShape3D_1u4an")
+
+[node name="right_attack" type="Node3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.577497, 0.465256, 0)
+
+[node name="BlowtorchVisual" type="Node3D" parent="right_attack"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.575493, -1.1007, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="right_attack/BlowtorchVisual"]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.378052, 0)
+mesh = SubResource("CylinderMesh_hg8xv")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="right_attack/BlowtorchVisual"]
+transform = Transform3D(-8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, 0, 0, 0, 0.2, 0.307161, 1.24141, 0)
+mesh = SubResource("CylinderMesh_0ntsb")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="right_attack/BlowtorchVisual"]
+transform = Transform3D(-0.153574, -0.128121, 0, 0.128121, -0.153574, 0, 0, 0, 0.2, 0.0657937, 1.11459, 0)
+mesh = SubResource("CylinderMesh_0ntsb")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="right_attack/BlowtorchVisual"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.604572, 1.22878, 0)
+mesh = SubResource("CylinderMesh_vhr3x")
+skeleton = NodePath("../../..")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="right_attack"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.347327, 0.141603, 0)
+amount = 10
+lifetime = 0.4
+mesh = SubResource("QuadMesh_f1u0s")
+gravity = Vector3(0, 0, 0)
+initial_velocity_max = 30.0
+
+[node name="left_attack" type="Node3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.508151, 0.416183, 0)
+
+[node name="BlowtorchVisual2" type="Node3D" parent="left_attack"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.413231, -0.990229, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="left_attack/BlowtorchVisual2"]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.378052, 0)
+mesh = SubResource("CylinderMesh_hg8xv")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="left_attack/BlowtorchVisual2"]
+transform = Transform3D(-8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, 0, 0, 0, 0.2, 0.307161, 1.24141, 0)
+mesh = SubResource("CylinderMesh_0ntsb")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="left_attack/BlowtorchVisual2"]
+transform = Transform3D(-0.153574, -0.128121, 0, 0.128121, -0.153574, 0, 0, 0, 0.2, 0.0657937, 1.11459, 0)
+mesh = SubResource("CylinderMesh_0ntsb")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="left_attack/BlowtorchVisual2"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.604572, 1.22878, 0)
+mesh = SubResource("CylinderMesh_vhr3x")
+skeleton = NodePath("../../..")
+
+[node name="CPUParticles3D2" type="CPUParticles3D" parent="left_attack"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.22985, 0.248864, 0)
+amount = 10
+lifetime = 0.4
+mesh = SubResource("QuadMesh_f1u0s")
+direction = Vector3(-1, 0, 0)
+gravity = Vector3(0, 0, 0)
+initial_velocity_max = 10.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
