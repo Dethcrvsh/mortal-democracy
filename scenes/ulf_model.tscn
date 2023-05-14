@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://cc3o5jjayjtil"]
 
-[ext_resource type="Texture2D" uid="uid://dibo4r1q8rbv2" path="res://Assets/Models/Ulf_Kristerson_uffe.png" id="1_sumgb"]
+[ext_resource type="Texture2D" uid="uid://so8by4uxb7sa" path="res://Assets/Models/Ulf_Kristerson_uffe.png" id="1_sumgb"]
 [ext_resource type="Animation" uid="uid://k65i5cvsxo3s" path="res://Assets/Models/ArmatureAction.res" id="2_ycm34"]
-[ext_resource type="Animation" uid="uid://dq2lhyu64nrmd" path="res://Assets/Models/Idel.res" id="3_gh18j"]
-[ext_resource type="Animation" uid="uid://bul22pvg4u5jd" path="res://Assets/Models/animation.res" id="4_mwjmm"]
+[ext_resource type="Animation" uid="uid://de6nd1osovm52" path="res://Assets/Models/Idel.res" id="3_gh18j"]
+[ext_resource type="Animation" uid="uid://bmr4xgufmw5op" path="res://Assets/Models/animation.res" id="4_mwjmm"]
 [ext_resource type="Animation" uid="uid://dxmq2uikcd34p" path="res://Assets/Models/fall.res" id="5_g30dq"]
 [ext_resource type="Animation" uid="uid://cj5b52ysxqyur" path="res://Assets/Models/jump.res" id="6_fempo"]
 [ext_resource type="Animation" path="res://Assets/Models/talk.res" id="7_dxskl"]

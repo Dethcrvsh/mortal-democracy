@@ -14,7 +14,7 @@ func _ready():
 func _on_body_entered(body):
 	if body != player and body.is_in_group("players"):
 		if player.player_state == player.SPECIAL:
-			body.take_damage(player.last_move_dir, player.input_dir, 3)
+			body.take_damage(player.last_move_dir, player.input_dir, 4)
 		else:
 			body.take_damage(player.last_move_dir, player.input_dir, 1)
 
