@@ -55,11 +55,10 @@ func start_game():
 	map = map2_asset.instantiate()
 	add_child(map)
 	player_handler.set_map(map)
-	player_handler.despawn_players()
+	player_handler.move_players_to_spawn()
 	
 	for device in gamestate.player_index_by_device:
 		gamestate.votes[device] = 0
-		player_handler.spawn_new_player(device)
 		add_progress_bar(device)
 
 	gamestate.state = gamestate.GAME_PLAYING
