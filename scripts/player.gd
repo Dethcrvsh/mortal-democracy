@@ -25,6 +25,9 @@ const PUNCH = 1
 const TUMBLE = 2
 const SHIELD = 3
 const SPECIAL = 4
+const SHOE_SPEED = 20
+const SHOE_OFFSET = Vector3(0.3, 0.8, 0)
+const ANNIE_COOLDOWN = 1.0
 
 var player_state = 0
 var player = ""
@@ -44,6 +47,7 @@ var punch_cooldown = 0.0
 var can_punch = true
 var can_special = true
 var character_id = 0
+var annie_timer = ANNIE_COOLDOWN
 
 @onready var model = $Model
 @onready var animator = $Model/AnimationPlayer
@@ -52,6 +56,7 @@ var character_id = 0
 @onready var shield_node = load("res://scenes/shield.tscn")
 @onready var jimmie_model = load("res://scenes/jimmie_model.tscn")
 @onready var iron_bar_model = load("res://scenes/IronBar.tscn")
+@onready var shoe_scene = load("res://scenes/shoe.tscn")
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -126,11 +131,14 @@ func _physics_process(delta):
 			shield.queue_free()
 	
 	if Input.is_action_just_pressed("special_" + player) and player_state == IDLE:
-		if (character_id == 0 and jimmie_special_cooldown <= 0.0):
+		if (character_id == 0 and jimmie_special_cooldown <= 0.0) or (character_id == 1):
 			player_state = SPECIAL
 			init_special()
 		return
 
+	if annie_timer <= ANNIE_COOLDOWN:
+		annie_timer += delta
+		
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	input_dir = Input.get_vector("left_" + player, 
@@ -233,10 +241,16 @@ func do_shield(delta):
 		shield_timer += delta
 
 func init_special():
-	print_debug("special initialied by ", player)
+	print_debug("special initialied by ", player, "as ", character_id)
+	
+	#jimmie
 	if character_id == 0:
 		cooldown = JIMMIE_SPECIAL_DELAY
 		velocity.x = 0
+		
+	# annie
+	if character_id == 1:
+		annie_special()
 
 func do_special(delta):
 	if character_id == 0:
@@ -262,7 +276,8 @@ func do_jimmie_special(delta):
 	
 	cooldown -= delta
 		
-func change_character(new_model, new_scale = Vector3(1, 1, 1)):
+func change_character(char_id, new_model, new_scale = Vector3(1, 1, 1)):
+	character_id = char_id
 	new_model.transform = og_model_transform.scaled(new_scale)
 	new_model.rotation = model.rotation
 	new_model.position.y = -0.4 + 0.7*(new_scale.y-1)
@@ -270,3 +285,15 @@ func change_character(new_model, new_scale = Vector3(1, 1, 1)):
 	model = new_model
 	animator = new_model.get_node("AnimationPlayer")
 	add_child(model)
+	player_state = IDLE
+
+func annie_special():
+	if annie_timer > ANNIE_COOLDOWN:
+		var shoe_inst = shoe_scene.instantiate()
+		get_parent().add_child(shoe_inst)
+		shoe_inst.set_player(self)
+		shoe_inst.set_spawn_dir(last_move_dir)
+		shoe_inst.set_linear_velocity(Vector3(last_move_dir*SHOE_SPEED, SHOE_SPEED/6, 0))
+		shoe_inst.global_position = global_position + Vector3(SHOE_OFFSET.x*last_move_dir, SHOE_OFFSET.y, 0)
+		annie_timer = 0.0
+	player_state = IDLE

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_1ekv2"]
 [ext_resource type="PackedScene" uid="uid://bkoeeqyhqgy0l" path="res://scenes/Platform2.tscn" id="2_we57d"]
 [ext_resource type="Script" path="res://scenes/CharacterChangesMaster.gd" id="3_h657m"]
-[ext_resource type="PackedScene" uid="uid://bkwa3ru7esa1j" path="res://scenes/character_changer.tscn" id="3_ppmdg"]
+[ext_resource type="PackedScene" path="res://scenes/character_changer.tscn" id="3_ppmdg"]
 [ext_resource type="Texture2D" uid="uid://ch8rfnu6a7l50" path="res://Assets/headshots/akesson.png" id="4_k1el4"]
 [ext_resource type="Texture2D" uid="uid://cbiuhuaxgrcfe" path="res://Assets/headshots/annie.png" id="6_a5w2p"]
 [ext_resource type="Texture2D" uid="uid://c1j2avryg6av2" path="res://Assets/headshots/steffe.png" id="7_esd25"]
@@ -49,6 +49,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 10, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1, 30)
+current = true
 fov = 12.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
