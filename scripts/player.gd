@@ -11,6 +11,7 @@ const PUNCH_DELAY = 0.5
 const SHIELD_MAX = 1.0
 const SHIELD_DMG_PENALTY = -0.5
 const TUMBLE_ROTATION = PI*2
+const SHIELD_COOLDOWN = 1.0
 
 const JIMMIE_SPECIAL_DELAY = 1.0
 const JIMMIE_SPECIAL_RAMP_UP = 0.3
@@ -49,6 +50,9 @@ var can_special = true
 var character_id = 0
 var annie_timer = ANNIE_COOLDOWN
 var talking = false
+var shield_cooldown = 0.0
+
+
 
 var stefan_special = null
 var stefan_special_cooldown = 0
@@ -156,9 +160,11 @@ func _physics_process(delta):
 		do_punch()
 	
 	elif Input.is_action_just_pressed("shield_" + player) and (player_state == IDLE or player_state == SHIELD):
-		player_state = SHIELD
-		shield = shield_node.instantiate()
-		add_child(shield)
+		if shield_cooldown <= 0.0:
+			player_state = SHIELD
+			shield = shield_node.instantiate()
+			shield_cooldown = SHIELD_COOLDOWN
+			add_child(shield)
 	
 	elif Input.is_action_just_released("shield_" + player):
 		player_state = IDLE
@@ -189,7 +195,7 @@ func _physics_process(delta):
 	elif input_dir.x == 0 and player_state == IDLE:
 		model.rotation = Vector3(0, PI, 0)
 		
-	if input_dir.x != 0:
+	if input_dir.x != 0 and player_state != SHIELD:
 		velocity.x = input_dir.x * SPEED
 		if input_dir.x < 0:
 			last_move_dir = -1
@@ -271,10 +277,15 @@ func do_punch():
 	can_punch = false
 
 func do_shield(delta):
+	if shield_cooldown >= 0.0:
+		shield_cooldown -= delta
+		return
+	
 	if player_state == SHIELD:
 		if shield_timer < 0:
 			player_state = IDLE
 			shield.queue_free()
+			shield_cooldown = SHIELD_COOLDOWN
 		else:
 			shield_timer -= delta
 	elif shield_timer < SHIELD_MAX:
