@@ -2,18 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hnj04wnj2xgs"
-path.s3tc="res://.godot/imported/Annie_Lööf_annie.png-e33caecf9f5aeccf5d0054a4cfcf0eea.s3tc.ctex"
+uid="uid://ch8rfnu6a7l50"
+path.s3tc="res://.godot/imported/akesson.png-5e2a10380f79be96c9f846def0a6dcc8.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={}
 
 [deps]
 
-source_file="res://Assets/Models/Annie_Lööf_annie.png"
-dest_files=["res://.godot/imported/Annie_Lööf_annie.png-e33caecf9f5aeccf5d0054a4cfcf0eea.s3tc.ctex"]
+source_file="res://Assets/headshots/akesson.png"
+dest_files=["res://.godot/imported/akesson.png-5e2a10380f79be96c9f846def0a6dcc8.s3tc.ctex"]
 
 [params]
 
