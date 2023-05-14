@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://cvfhbmm026k4c"]
 
-[ext_resource type="Texture2D" uid="uid://bvr48ovnjj72k" path="res://Assets/Models/Stefan_Löfven_steffe.png" id="1_2lpps"]
+[ext_resource type="Texture2D" uid="uid://depqscpcrkt0i" path="res://Assets/Models/Stefan_Löfven_steffe.png" id="1_2lpps"]
 [ext_resource type="Animation" uid="uid://k65i5cvsxo3s" path="res://Assets/Models/ArmatureAction.res" id="2_oegel"]
 [ext_resource type="Animation" uid="uid://dq2lhyu64nrmd" path="res://Assets/Models/Idel.res" id="3_c1p8i"]
 [ext_resource type="Animation" uid="uid://bul22pvg4u5jd" path="res://Assets/Models/animation.res" id="4_gs17h"]
