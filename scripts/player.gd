@@ -369,7 +369,7 @@ func do_special(delta):
 	if character_id == 3:
 		if ulf_special == null:
 			player_state = IDLE
-			ulf_special_cooldown = 1
+			ulf_special_cooldown = 2
 			velocity.x = 0
 			self.rotation.z = 0
 		return

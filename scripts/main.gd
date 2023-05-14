@@ -100,6 +100,8 @@ func end_win_screen():
 	add_child(map)
 	add_child(main_menu)
 	player_handler.set_map(map)
+	for device in gamestate.progress_bars:
+		gamestate.progress_bars[device].queue_free()
 	
 	
 func player_joined(device):
