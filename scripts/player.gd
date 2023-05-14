@@ -12,6 +12,14 @@ const SHIELD_MAX = 1.0
 const SHIELD_DMG_PENALTY = -0.5
 const TUMBLE_ROTATION = PI*2
 
+const JIMMIE_SPECIAL_DELAY = 1.0
+const JIMMIE_SPECIAL_RAMP_UP = 0.5
+const JIMMIE_HITBOX_OFFSET = Vector3(2.0, 0, 0)
+const JIMMIE_SPECIAL_COOLDOWN_MAX = 5.0
+
+var jimmie_special_cooldown = 0.0
+var is_jimmie_special_spawned = false
+
 const IDLE = 0
 const PUNCH = 1
 const TUMBLE = 2
@@ -40,6 +48,7 @@ var character_id = 0
 @onready var model = $Model
 @onready var animator = $Model/AnimationPlayer
 @onready var hitbox_node = load("res://scenes/hitbox.tscn")
+@onready var jimmie_hitbox_node = load("res://scenes/jimmie_hitbox.tscn")
 @onready var shield_node = load("res://scenes/shield.tscn")
 @onready var jimmie_model = load("res://scenes/jimmie_model.tscn")
 
@@ -54,11 +63,12 @@ func set_player(arg_device: String) -> void:
 func set_character(arg_character_id: int):
 	character_id = arg_character_id
 
-func take_damage(player_dir, player_vector) -> void:
+func take_damage(player_dir, player_vector, scale) -> void:
 	if not player_state == SHIELD:
+		# TODO: jimmie
 		launch_player(Vector3(
-			10.0 * player_dir + 10 * player_vector.x, 
-			20.0 + 20.0 * player_vector.y * -1, 
+			(10.0 * player_dir + 10 * player_vector.x) * scale, 
+			(20.0 + 20.0 * player_vector.y * -1) * scale, 
 			0
 		))
 		print(player + " took damage")
@@ -80,9 +90,13 @@ func _physics_process(delta):
 	
 	if player_state == SPECIAL:
 		do_special(delta)
+		move_and_slide()
 		return
 
 	do_shield(delta)
+	
+	if jimmie_special_cooldown >= 0.0:
+		jimmie_special_cooldown -= delta
 	
 	# Handle punches
 	if punch_cooldown <= 0.0:
@@ -111,8 +125,9 @@ func _physics_process(delta):
 			shield.queue_free()
 	
 	if Input.is_action_just_pressed("special_" + player) and player_state == IDLE:
-		player_state = SPECIAL
-		init_special()
+		if (jimmie_special_cooldown <= 0.0):
+			player_state = SPECIAL
+			init_special()
 		return
 
 	# Get the input direction and handle the movement/deceleration.
@@ -219,11 +234,28 @@ func do_shield(delta):
 
 func init_special():
 	print_debug("special initialied by ", player)
+	cooldown = JIMMIE_SPECIAL_DELAY
 	pass
 
 func do_special(delta):
-	print_debug("special executing")
-	pass
+	if jimmie_special_cooldown <= 0.0:
+		velocity.x = 0
+		if cooldown <= 0.0:
+			cooldown = 0.0
+			player_state = IDLE
+			is_jimmie_special_spawned = false
+			jimmie_special_cooldown = JIMMIE_SPECIAL_COOLDOWN_MAX
+			return
+		elif cooldown <= JIMMIE_SPECIAL_RAMP_UP and not is_jimmie_special_spawned:
+			print("ramp")
+			var hitbox = jimmie_hitbox_node.instantiate()
+			hitbox.set_player(self)
+			hitbox.position += JIMMIE_HITBOX_OFFSET * last_move_dir
+			hitbox.max_timer = JIMMIE_SPECIAL_DELAY - JIMMIE_SPECIAL_RAMP_UP
+			add_child(hitbox)
+			is_jimmie_special_spawned = true
+	
+	cooldown -= delta
 		
 func change_character(new_model, new_scale = Vector3(1, 1, 1)):
 	new_model.transform = og_model_transform.scaled(new_scale)
