@@ -64,10 +64,10 @@ func start_game():
 	gamestate.state = gamestate.GAME_PLAYING
 
 func add_progress_bar(device: String) -> void:
+	print(player_handler.get_characters())
 	var player_index = gamestate.player_index_by_device[device]
 	var progress_bar = progress_bar_asset.instantiate()
 	add_child(progress_bar)
-	progress_bar.set_color(gamestate.COLORS[player_index])
 	progress_bar.set_offset(gamestate.PROGRESS_BAR_POS[player_index])
 	gamestate.progress_bars[device] = progress_bar
 	

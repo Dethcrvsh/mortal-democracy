@@ -35,6 +35,12 @@ func despawn_players() -> void:
 		player.queue_free()
 	players = []
 
+func get_characters():
+	var characters = []
+	for player in players:
+		characters.append(player.character_id)
+	return characters
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
