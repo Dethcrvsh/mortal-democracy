@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://dnusr5g8y8dmf"]
 
 [ext_resource type="Script" path="res://scripts/progress_bar.gd" id="1_wv35u"]
-[ext_resource type="Texture2D" uid="uid://dxrgtx46tx52p" path="res://Assets/Bars/bar background.png" id="2_8omqa"]
-[ext_resource type="Texture2D" uid="uid://vtwgokqlmhx0" path="res://Assets/Bars/sd bar foreground.png" id="3_502r6"]
-[ext_resource type="Texture2D" uid="uid://buwj1j6ijlll2" path="res://Assets/Bars/sd bar inside.png" id="4_lid2q"]
+[ext_resource type="Texture2D" uid="uid://ba30svb6go8lu" path="res://Assets/Bars/bar background.png" id="2_8omqa"]
+[ext_resource type="Texture2D" uid="uid://dx50ecpym41rk" path="res://Assets/Bars/sd bar foreground.png" id="3_502r6"]
+[ext_resource type="Texture2D" uid="uid://y6aojvvwk170" path="res://Assets/Bars/sd bar inside.png" id="4_lid2q"]
 
 [node name="ProgressBar" type="CanvasLayer"]
 script = ExtResource("1_wv35u")
