@@ -298,7 +298,7 @@ bones/19/rotation = Quaternion(0.743974, 2.03132e-14, -1.9958e-14, 0.668209)
 bones/19/scale = Vector3(1, 1, 1)
 
 [node name="Cube001" type="BoneAttachment3D" parent="Armature/Skeleton3D"]
-transform = Transform3D(-0.962994, 0.062877, -0.262084, -0.203942, 0.465747, 0.861097, 0.176208, 0.882681, -0.435688, -0.48625, 5.39679, -1.0247)
+transform = Transform3D(-0.962995, 0.0628772, -0.262084, -0.203942, 0.465747, 0.861097, 0.176208, 0.882681, -0.435688, -0.48625, 5.39679, -1.0247)
 bone_name = "Cube.001"
 bone_idx = 6
 
