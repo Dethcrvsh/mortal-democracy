@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://cvfhbmm026k4c"]
 
-[ext_resource type="Texture2D" uid="uid://bvr48ovnjj72k" path="res://Assets/Models/Stefan_Löfven_steffe.png" id="1_2lpps"]
+[ext_resource type="Texture2D" uid="uid://d0fmwogrr8bhb" path="res://Assets/Models/Stefan_Löfven_steffe.png" id="1_2lpps"]
 [ext_resource type="Animation" uid="uid://k65i5cvsxo3s" path="res://Assets/Models/ArmatureAction.res" id="2_oegel"]
-[ext_resource type="Animation" uid="uid://dq2lhyu64nrmd" path="res://Assets/Models/Idel.res" id="3_c1p8i"]
-[ext_resource type="Animation" uid="uid://bul22pvg4u5jd" path="res://Assets/Models/animation.res" id="4_gs17h"]
+[ext_resource type="Animation" uid="uid://de6nd1osovm52" path="res://Assets/Models/Idel.res" id="3_c1p8i"]
+[ext_resource type="Animation" uid="uid://bmr4xgufmw5op" path="res://Assets/Models/animation.res" id="4_gs17h"]
 [ext_resource type="Animation" uid="uid://dxmq2uikcd34p" path="res://Assets/Models/fall.res" id="5_h2wst"]
 [ext_resource type="Animation" uid="uid://cj5b52ysxqyur" path="res://Assets/Models/jump.res" id="6_7u5ni"]
 [ext_resource type="Animation" uid="uid://c6seypm4audvi" path="res://Assets/Models/tumble.res" id="7_jtpub"]
@@ -97,8 +97,8 @@ bind/18/pose = Transform3D(1, 1.65089e-20, -5.21335e-22, 1.3501e-14, -0.0315631,
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eavxb"]
 _data = {
-"ArmatureAction 2": ExtResource("2_oegel"),
 "Idel": ExtResource("3_c1p8i"),
+"Punch": ExtResource("2_oegel"),
 "Run": ExtResource("4_gs17h"),
 "fall": ExtResource("5_h2wst"),
 "jump": ExtResource("6_7u5ni"),
@@ -117,22 +117,22 @@ bones/0/name = "Spine"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, -1.04921e-10, -2.38307e-07, -1.49054e-08, 0.998014, -0.0629863, 2.3784e-07, 0.0629863, 0.998014, 2.32834e-10, 1.50564, -0.00677861)
 bones/0/enabled = true
-bones/0/position = Vector3(2.32834e-10, 1.50564, -0.00677861)
-bones/0/rotation = Quaternion(0.0507108, -1.19003e-07, -5.98996e-09, 0.998713)
+bones/0/position = Vector3(2.32836e-10, 2.23414, -0.00677861)
+bones/0/rotation = Quaternion(-0.0122358, -1.19144e-07, 1.51041e-09, 0.999925)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "Spine.001"
 bones/1/parent = 0
 bones/1/rest = Transform3D(1, -2.96282e-09, 4.76796e-07, -3.00698e-09, 0.999922, 0.0125202, -4.76796e-07, -0.0125202, 0.999922, 1.23387e-14, 1.10945, -2.98504e-09)
 bones/1/enabled = true
 bones/1/position = Vector3(1.23387e-14, 1.10945, -2.98504e-09)
-bones/1/rotation = Quaternion(-0.15755, 2.35444e-07, -2.60451e-11, 0.987511)
+bones/1/rotation = Quaternion(-0.10504, 2.37098e-07, -2.08659e-11, 0.994468)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "Shoulder.L"
 bones/2/parent = 1
 bones/2/rest = Transform3D(-0.218917, -0.974755, 0.0439032, 0.974499, -0.216145, 0.0602726, -0.0492616, 0.0559784, 0.997216, 5.90613e-09, 1.38415, -1.50815e-08)
 bones/2/enabled = true
 bones/2/position = Vector3(5.90613e-09, 1.38415, -1.50815e-08)
-bones/2/rotation = Quaternion(0.0264785, 0.0600211, 0.783326, 0.61814)
+bones/2/rotation = Quaternion(-0.00171791, 0.0372701, 0.779788, 0.624931)
 bones/2/scale = Vector3(1, 1, 1)
 bones/3/name = "Arm1.L"
 bones/3/parent = 2
@@ -174,7 +174,7 @@ bones/8/parent = 1
 bones/8/rest = Transform3D(-0.218917, 0.974755, -0.0439037, -0.974499, -0.216145, 0.0602726, 0.0492615, 0.0559788, 0.997216, 5.15396e-08, 1.38415, 3.11482e-09)
 bones/8/enabled = true
 bones/8/position = Vector3(5.15396e-08, 1.38415, 3.11482e-09)
-bones/8/rotation = Quaternion(0.143351, -0.0587452, -0.786354, 0.598036)
+bones/8/rotation = Quaternion(-0.0761052, 0.0240017, -0.743312, 0.664169)
 bones/8/scale = Vector3(1, 1, 1)
 bones/9/name = "Arm1.R"
 bones/9/parent = 8
@@ -201,7 +201,7 @@ bones/12/name = "LowerSpine"
 bones/12/parent = -1
 bones/12/rest = Transform3D(1, -3.85355e-10, 2.38029e-07, 2.28514e-09, -0.999937, -0.0112191, 2.38018e-07, 0.0112191, -0.999937, 2.32831e-10, 1.50564, -0.00677861)
 bones/12/enabled = true
-bones/12/position = Vector3(2.32831e-10, 1.50564, -0.00677861)
+bones/12/position = Vector3(2.32831e-10, 2.23414, -0.00677861)
 bones/12/rotation = Quaternion(0.999984, 4.74955e-10, 1.19014e-07, 0.00560965)
 bones/12/scale = Vector3(1, 1, 1)
 bones/13/name = "UpperLeg.L"

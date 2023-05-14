@@ -1,15 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://da4bmar1xqjac"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_jbswu"]
-size = Vector3(2, 0.2, 1)
+[ext_resource type="PackedScene" uid="uid://pvqvuxicrb4u" path="res://Assets/Models/platform.glb" id="1_py4pj"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_jq8ft"]
 points = PackedVector3Array(-1, -0.1, -0.5, -1, 0.1, -0.5, 1, -0.1, -0.5, -1, -0.1, 0.5, -1, 0.1, 0.5, 1, 0.1, -0.5, 1, -0.1, 0.5, 1, 0.1, 0.5)
 
 [node name="Platform1" type="StaticBody3D"]
 
-[node name="BaseMesh" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_jbswu")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_jq8ft")
+
+[node name="platform" parent="." instance=ExtResource("1_py4pj")]
+transform = Transform3D(-1.70474e-08, 0, 0.39, 0, 0.39, 0, -0.39, 0, -1.70474e-08, 0, -0.216163, 0)
