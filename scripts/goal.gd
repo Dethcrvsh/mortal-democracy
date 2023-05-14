@@ -23,8 +23,10 @@ func _on_body_entered(body: Node3D):
 	if body.is_in_group("players"):
 		players_in_zone.append(body.device)
 		print_debug("player %s at podium" % body.device)
+		body.talking = true
 
 func _on_body_exited(body: Node3D):
 	if body.is_in_group("players"):
 		players_in_zone.erase(body.device)
+		body.talking = false
 	

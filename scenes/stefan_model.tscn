@@ -1,12 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://cvfhbmm026k4c"]
+[gd_scene load_steps=13 format=3 uid="uid://cvfhbmm026k4c"]
 
-[ext_resource type="Texture2D" uid="uid://d0fmwogrr8bhb" path="res://Assets/Models/Stefan_Löfven_steffe.png" id="1_2lpps"]
+[ext_resource type="Texture2D" uid="uid://bsmne7ojs55ed" path="res://Assets/Models/Stefan_Löfven_steffe.png" id="1_2lpps"]
 [ext_resource type="Animation" uid="uid://k65i5cvsxo3s" path="res://Assets/Models/ArmatureAction.res" id="2_oegel"]
 [ext_resource type="Animation" uid="uid://de6nd1osovm52" path="res://Assets/Models/Idel.res" id="3_c1p8i"]
 [ext_resource type="Animation" uid="uid://bmr4xgufmw5op" path="res://Assets/Models/animation.res" id="4_gs17h"]
 [ext_resource type="Animation" uid="uid://dxmq2uikcd34p" path="res://Assets/Models/fall.res" id="5_h2wst"]
 [ext_resource type="Animation" uid="uid://cj5b52ysxqyur" path="res://Assets/Models/jump.res" id="6_7u5ni"]
 [ext_resource type="Animation" uid="uid://c6seypm4audvi" path="res://Assets/Models/tumble.res" id="7_jtpub"]
+[ext_resource type="Animation" uid="uid://cqo8w61xlvwx4" path="res://Assets/Models/talk.res" id="8_3vgn3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x4ktq"]
 resource_name = "Material"
@@ -102,6 +103,7 @@ _data = {
 "Run": ExtResource("4_gs17h"),
 "fall": ExtResource("5_h2wst"),
 "jump": ExtResource("6_7u5ni"),
+"talk": ExtResource("8_3vgn3"),
 "tumble": ExtResource("7_jtpub")
 }
 

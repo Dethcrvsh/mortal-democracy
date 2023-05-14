@@ -48,6 +48,7 @@ var can_punch = true
 var can_special = true
 var character_id = 0
 var annie_timer = ANNIE_COOLDOWN
+var talking = false
 
 var stefan_special = null
 var stefan_special_cooldown = 0
@@ -173,7 +174,11 @@ func _physics_process(delta):
 	# Play run animation if where moving
 	
 	if punch_cooldown <= 0:
-		if not is_on_floor():
+		if talking:
+			animator.play("talk")
+			animator.speed_scale = 1.0
+			
+		elif not is_on_floor():
 			if velocity.y > 0:
 				animator.play("jump")
 			else:
